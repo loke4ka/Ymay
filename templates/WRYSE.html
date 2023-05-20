@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>How did you Know</title>
+    <link rel="stylesheet" href={% static 'Ymay/style.css' %}/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <div class="content">
+            <section class="content-section">
+                <div class="sel-wryse-contents">
+                    <div class="back-arrow">
+                        <img src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset=""/>
+                    </div>
+                    <div class="expression-img-msg">
+                        <div class="expression-img">
+                            <img src="{% static 'Ymay/images/wryse-icons/wryse-exp.png' %}" alt="" srcset=""/>
+                        </div>
+                        <div class="expression-msg">
+                            <img src="{% static 'Ymay/images/wryse-icons/wryse-msg-bg.png' %}" alt="" srcset=""/>
+                            <p>Why are you studying Gestures?</p>
+                        </div>
+                    </div>
+                    <!-- wryse-options  -->
+                    <div class="wryse-options">
+                        <!-- option  -->
+                        <div class="wryse-opt option active-option">
+                            <div class="wryse-opt-img option-img">
+                                <img class="sel-opt-flag" src="{% static 'Ymay/images/wryse-icons/smile-emoji.png' %}" alt=""
+                                     srcset=""/>
+                            </div>
+                            <div class="wryse-opt-name option-name">
+                                <p class="sel-opt-nam">Just for fun</p>
+                            </div>
+                        </div>
+                        <!-- option  -->
+                        <div class="wryse-opt option">
+                            <div class="wryse-opt-img option-img">
+                                <img class="sel-opt-flag" src="{% static 'Ymay/images/wryse-icons/bag-emoji.png' %}" alt=""
+                                     srcset=""/>
+                            </div>
+                            <div class="wryse-opt-name option-name">
+                                <p class="sel-opt-nam">Improve my career</p>
+                            </div>
+                        </div>
+                        <!-- option  -->
+                        <div class="wryse-opt option">
+                            <div class="wryse-opt-img option-img">
+                                <img class="sel-opt-flag" src="{% static 'Ymay/images/wryse-icons/cap-emoji.png' %}" alt=""
+                                     srcset=""/>
+                            </div>
+                            <div class="wryse-opt-name option-name">
+                                <p class="sel-opt-nam">Support my education</p>
+                            </div>
+                        </div>
+                        <!-- option  -->
+                        <div class="wryse-opt option">
+                            <div class="wryse-opt-img option-img">
+                                <img class="sel-opt-flag" src="{% static 'Ymay/images/wryse-icons/plane-emoji.png' %}" alt=""
+                                     srcset=""/>
+                            </div>
+                            <div class="wryse-opt-name option-name">
+                                <p class="sel-opt-nam">Vacation preparation</p>
+                            </div>
+                        </div>
+                        <!-- option  -->
+                        <div class="wryse-opt option">
+                            <div class="wryse-opt-img option-img">
+                                <img class="sel-opt-flag" src="{% static 'Ymay/images/wryse-icons/puzzle-emoji.png' %}"
+                                     alt="" srcset=""/>
+                            </div>
+                            <div class="wryse-opt-name option-name">
+                                <p class="sel-opt-nam">Others reason</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- continue button  -->
+            <section class="signup-btns">
+                <div class="continue-btn">
+                    <a href="{% url 'wiydst' %}" class="btn m-b-20 btn-primary">Continue</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    // Get all elements with the class
+    const wryse_opt = document.querySelectorAll(".wryse-opt");
+    // Loop through each element and add an event listener to it
+    wryse_opt.forEach((element) => {
+        element.addEventListener("click", function () {
+            // Add the class of the clicked element
+            this.classList.add("active-option");
+            // Loop through all elements and remove class from non-clicked elements
+            wryse_opt.forEach((nonClickedElement) => {
+                if (nonClickedElement !== this) {
+                    nonClickedElement.classList.remove("active-option");
+                }
+            });
+        });
+    });
+</script>
+</html>

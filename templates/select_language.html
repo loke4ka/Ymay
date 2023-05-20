@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Select Language</title>
+    <link rel="stylesheet" href={% static 'Ymay/style.css' %}/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <div class="content">
+            <section class="content-section">
+                <div class="sel-lang-contents">
+                    <div class="back-arrow">
+                        <img src={% static 'Ymay/images/back-arrow.png' %} alt="" srcset=""/>
+                    </div>
+                    <div class="expression-img-msg">
+                        <div class="expression-img">
+                            <img src={% static 'Ymay/images/select-lang-exp.png ' %} alt="" srcset=""/>
+                        </div>
+                        <div class="expression-msg">
+                            <img src={% static 'Ymay/images/sel-lang-exp.png ' %} alt="" srcset=""/>
+                            <p>What language do you want to use for Ymay?</p>
+                        </div>
+                    </div>
+                    <div class="seld-lang-heading">
+                        <p>Your Native Language</p>
+                    </div>
+                    <!-- selected option info -->
+                    <div class="selected-lang-option">
+                        <div class="lang-opt-img option-img">
+                            <img class="selected-img" src="{% static 'Ymay/images/select-lang-icons/flags/usa.png' %}"
+                                 alt="" srcset=""/>
+                        </div>
+                        <div class="lang-opt-name option-name">
+                            <p class="selected-name">English</p>
+                        </div>
+                        <div class="change-option">
+                            <p>Change</p>
+                        </div>
+                    </div>
+                    <!-- language-options  -->
+                    <div class="language-options">
+                        <div class="sel-lang-heading">
+                            <p>App Language</p>
+                        </div>
+                        <!-- option  -->
+                        <div class="lang-opt option active-option">
+                            <div class="lang-opt-img option-img">
+                                <img class="sel-opt-flag"
+                                     src="{% static 'Ymay/images/select-lang-icons/flags/usa.png' %}" alt="" srcset=""/>
+                            </div>
+                            <div class="lang-opt-name option-name">
+                                <p class="sel-opt-nam">English</p>
+                            </div>
+                        </div>
+                        <!-- option  -->
+                        <div class="lang-opt option">
+                            <div class="lang-opt-img option-img">
+                                <img class="sel-opt-flag"
+                                     src="{% static 'Ymay/images/select-lang-icons/flags/france.png' %}" alt=""
+                                     srcset=""/>
+                            </div>
+                            <div class="lang-opt-name option-name">
+                                <p class="sel-opt-nam">France</p>
+                            </div>
+                        </div>
+                        <!-- option  -->
+                        <div class="lang-opt option">
+                            <div class="lang-opt-img option-img">
+                                <img class="sel-opt-flag"
+                                     src="{% static 'Ymay/images/select-lang-icons/flags/kazakh.png' %}" alt=""
+                                     srcset=""/>
+                            </div>
+                            <div class="lang-opt-name option-name">
+                                <p class="sel-opt-nam">Kazakh</p>
+                            </div>
+                        </div>
+                        <!-- option  -->
+                        <div class="lang-opt option">
+                            <div class="lang-opt-img option-img">
+                                <img class="sel-opt-flag"
+                                     src="{% static 'Ymay/images/select-lang-icons/flags/russia.png' %}" alt=""
+                                     srcset=""/>
+                            </div>
+                            <div class="lang-opt-name option-name">
+                                <p class="sel-opt-nam">Russia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- continue button  -->
+            <section class="signup-btns">
+                <div class="continue-btn">
+                    <a href="{% url 'hdyk' %}" class="btn m-b-20 btn-primary">Continue</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    // Get change-option element
+    const change_option = document.getElementsByClassName("change-option")[0];
+    const language_options = document.getElementsByClassName("language-options")[0];
+    change_option.addEventListener("click", function () {
+        language_options.classList.add("show");
+    });
+
+    // Get selected data for change
+    const selected_img = document.getElementsByClassName("selected-img")[0];
+    const selected_name = document.getElementsByClassName("selected-name")[0];
+
+    // Get all elements with the class
+    const lang_opts = document.querySelectorAll(".lang-opt");
+    // Loop through each element and add an event listener to it
+    lang_opts.forEach((element) => {
+        element.addEventListener("click", function () {
+            // Add the class of the clicked element
+            this.classList.add("active-option");
+            // Get data of selected option
+            const img_src = this.getElementsByClassName("sel-opt-flag")[0];
+            const otp_name = this.getElementsByClassName("sel-opt-nam")[0];
+            selected_img.setAttribute("src", img_src.getAttribute("src"));
+            selected_name.innerText = otp_name.innerText;
+            // Loop through all elements and remove class from non-clicked elements
+            lang_opts.forEach((nonClickedElement) => {
+                if (nonClickedElement !== this) {
+                    nonClickedElement.classList.remove("active-option");
+                }
+            });
+            language_options.classList.remove("show");
+        });
+    });
+</script>
+</html>

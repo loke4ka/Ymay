@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>How did you Know</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <div class="cotpc-contents content">
+            <form method="post" action="{% url 'password_reset_confirm' %}">
+                {% csrf_token %}
+                <section class="form-content-section">
+                    <div class="form-contents">
+                        <div class="form-back-arrow">
+                            <a href="{% url 'password_reset' %}">
+                            <img src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset=""/></a>
+                        </div>
+                    </div>
+                    <div class="form-inputs-content">
+                        <div class="txt-content">
+                            <p class="input-title">You’ve got mail 📩</p>
+                            <p class="input-description">We have sent the OTP verification code to your email address.
+                                Check your email and enter the code below.</p>
+                        </div>
+                        <div class="opt-inputs">
+                            <input class="active-option" type="number" name="opt-input-1" id="opt-input-1"/>
+                            <input type="number" name="opt-input-2" id="opt-input-2"/>
+                            <input type="number" name="opt-input-3" id="opt-input-3"/>
+                            <input type="number" name="opt-input-4" id="opt-input-4"/>
+                        </div>
+                        <div class="didnt-receive-email">
+                            <p>Didn't receive email?</p>
+                        </div>
+                        <div class="resend-code">
+                            <a href="http://" class="btn">
+                                You can resend code in
+                                <span class="count-down-num">55</span>
+                                s
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                <!-- continue button  -->
+                <section class="signup-btns">
+                    <div class="continue-btn">
+                        <button type="submit" class="btn m-b-20 btn-primary">Continue</button>
+                    </div>
+                </section>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

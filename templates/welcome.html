@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="container">
+        <div class="content-section">
+          <section class="welcome-upper-sec">
+            <div class="welcome-msg">
+              <p class="msg">Hi there! I'm Ymay!</p>
+              <img src="{% static 'Ymay/images/welcome-msg.png' %}" alt="" width="200px" />
+            </div>
+            <div class="welcome-emoji">
+              <img src="{% static 'Ymay/images/welcome-expression.png' %}" alt="" />
+            </div>
+            <div class="welcome-app-name">
+              <h1>Ymay</h1>
+            </div>
+            <div class="welcome-description">
+              <p>Learn whenever and wherever you want. It's free and forever.</p>
+            </div>
+          </section>
+          <section class="signup-btns">
+            <div class="get-start">
+              <a href="{% url 'select_language' %}" class="btn m-tb-10 btn-primary">GET STARTED</a>
+            </div>
+            <div class="login-account">
+              <a class="btn m-b-10 btn-secondary" href="{% url 'sign_in' %}">I ALREADY HAVE AN ACCOUNT</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

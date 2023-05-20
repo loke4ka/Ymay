@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>How did you Know</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <div class="content">
+            <form action="{% url 'register_email' %}" method="post">
+                {% csrf_token %}
+                <section class="form-content-section">
+
+                    <div class="wiyea-contents form-contents">
+                        <div class="form-back-arrow">
+                            <img src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset=""/>
+                        </div>
+                        <div class="progress-bar">
+                            <img src="{% static 'Ymay/images/wiyea.icons/75-bar.png' %}" alt="" srcset=""/>
+                        </div>
+                    </div>
+                    <div class="form-inputs-content">
+                        <div class="txt-content">
+                            <p class="input-title">What is your email address? ✉️</p>
+                            <p class="input-label">Email</p>
+                        </div>
+                        <div class="wiyea-input form-input">
+                            <input type="email" name="email" id="wiyea-input" placeholder="jane.smith@yourdomain.com"/>
+                        </div>
+                        <hr class="wiyea-line input-line"/>
+                    </div>
+
+                </section>
+                <!-- continue button  -->
+                <section class="signup-btns">
+                    <div class="continue-btn">
+                        <button type="submit" class="btn m-b-20 btn-primary">Continue</button>
+                    </div>
+
+                </section>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

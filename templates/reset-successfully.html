@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>reset-success</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="container">
+        <div class="content-section">
+          <section class="reset-success-upper-sec">
+            <div class="reset-success-msg">
+              <p class="msg">Hurray!!</p>
+              <img src="{% static 'Ymay/images/reset-success-icons/complete-msg.png' %}" alt="" srcset="" width="200px" />
+            </div>
+            <div class="reset-success-emoji">
+              <img src="{% static 'Ymay/images/reset-success-icons/expression-logo.png' %}" alt="" srcset="" />
+            </div>
+            <div class="reset-success-app-name">
+              <h1>Welcome Back</h1>
+            </div>
+            <div class="reset-success-description">
+              <p>You have successfully reset and created a new password.</p>
+            </div>
+          </section>
+          <section class="signup-btns">
+            <div class="create-profile">
+              <a href="{% url 'homepage' %}" class="btn m-b-20 btn-primary">CONTINUE TO HOME</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

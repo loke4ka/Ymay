@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscription Successfull</title>
+  <link rel="stylesheet" href="{% static 'Ymay/style.css' %}" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="main" style="background: linear-gradient(286.17deg, #6949ff 0%, #876dff 100%)">
+    <div class="auto-layout-container">
+      <div class="content">
+        <section class="auto-layout-contents pb-250">
+
+          <!-- subscription plan vertical -->
+          <div class="subscription-successfull-layout">
+
+            <img class="yeaayy-img" src="{% static 'Ymay/images/subscription-successfull/yeaayy.png' %}" alt="">
+            <img class="main-img" src="{% static 'Ymay/images/subscription-successfull/main-icon.png' %}" alt="">
+            <p class="main-heading">Payment successfull!</p>
+            <p class="text">You have successfully subscribed to ymay for 3 months. We will always remind you before the
+              subscription expires. Enjoy the benifits</p>
+
+          </div>
+        </section>
+
+        <!-- continue button  -->
+        <section class="signup-btns mt-15">
+          <div class="continue-btn">
+            <a href="{% url 'homepage' %}" class="btn m-b-20 btn-primary">Great</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Get all elements with the class "my-class"
+    const selectPayment = document.querySelectorAll(".select-payment-opt");
+    // Loop through each element and add an event listener to it
+    selectPayment.forEach((element) => {
+      element.addEventListener("click", function () {
+        // Change the background color of the clicked element
+        // console.log();
+        const radioInner = this.querySelectorAll(".radio-inner")[0];
+        console.log(radioInner);
+        selectPayment.forEach((nonClickedElement) => {
+          if (nonClickedElement !== this) {
+            nonClickedElement.classList.remove("active-option");
+            radioInner.classList.remove("show");
+          } else {
+            this.classList.add("active-option");
+            radioInner.classList.add("show");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

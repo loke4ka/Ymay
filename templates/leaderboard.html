@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select Payment Method</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="main" style="background-image: none">
+      <div class="container">
+        <div class="content">
+          <section class="leaderboard-contents">
+            <div class="select-payment-header">
+              <img class="back" src="{% static 'Ymay/images/leaderboard-icons/icon.png' %}" alt="" srcset="" />
+              <p class="page-title">Leaderboard</p>
+              <img src="{% static 'Ymay/images/leaderboard-icons/Search.png' %}" alt="" class="plus" />
+            </div>
+            <div class="select-range">
+              <div id="weekly" class="range-btn active-btn">Weekly</div>
+              <div id="monthly" class="range-btn">Monthly</div>
+              <div id="all-time" class="range-btn">All Time</div>
+            </div>
+            <div class="user-details-sec">
+              <!-- 1st user -->
+              <div class="yrgu-user">
+                <div class="social-icon">
+                  <img src="{% static 'Ymay/images/your-rank-goes-up-icons/1st-position-icon.png' %}" alt="" />
+                </div>
+                <div class="yrgu-picture-name">
+
+                  <div class="picture"><img src="{% static 'Ymay/images/your-rank-goes-up-icons/1-img.png' %}" alt="" /></div>
+                  <a href="{% url 'people_profile' %}"><p class="name">Maryland Winkles</p></a>
+                </div>
+                <div class="xp">948 XP</div>
+              </div>
+              <hr class="line" />
+              <!-- 2nd user -->
+              <div class="yrgu-user">
+                <div class="social-icon">
+                  <img src="{% static 'Ymay/images/your-rank-goes-up-icons/2nd-position-icon.png' %}" alt="" />
+                </div>
+                <div class="yrgu-picture-name">
+                  <div class="picture"><img src="{% static 'Ymay/images/your-rank-goes-up-icons/2-img.png' %}" alt="" /></div>
+                  <p class="name">Jane Smith</p>
+                </div>
+                <div class="xp">872 XP</div>
+              </div>
+              <hr class="line" />
+              <!-- 3rd user -->
+              <div class="yrgu-user">
+                <div class="social-icon">
+                  <img src="{% static 'Ymay/images/your-rank-goes-up-icons/3rd-position-icon.png' %}" alt="" />
+                </div>
+                <div class="yrgu-picture-name">
+                  <div class="picture"><img src="{% static 'Ymay/images/your-rank-goes-up-icons/3-img.png' %}" alt="" /></div>
+                  <p class="name">Charlotte H...</p>
+                </div>
+                <div class="xp">769 XP</div>
+              </div>
+              <hr class="line" />
+              <!-- user  -->
+              <div class="yrgu-user">
+                <div class="rank-number">4</div>
+                <div class="yrgu-picture-name">
+                  <div class="picture"><img src="{% static 'Ymay/images/your-rank-goes-up-icons/4-img.png' %}" alt="" /></div>
+                  <p class="name">Florencio Do...</p>
+                </div>
+                <div class="xp">723 XP</div>
+              </div>
+              <hr class="line" />
+              <!-- user  -->
+              <div class="yrgu-user">
+                <div class="rank-number">5</div>
+                <div class="yrgu-picture-name">
+                  <div class="picture"><img src="{% static 'Ymay/images/your-rank-goes-up-icons/5-img.png' %}" alt="" /></div>
+                  <p class="name">Roselle Ehr...</p>
+                </div>
+                <div class="xp">660 XP</div>
+              </div>
+            </div>
+          </section>
+          <!-- footer  -->
+          <section class="homepage-footer">
+            <div class="home item">
+              <img src="{% static 'Ymay/images/homepage-icons/footer-icons/home.png' %}" alt="" srcset="" />
+               <a href="{% url 'homepage' %}"><p class="footer-text">Home</p></a>
+            </div>
+            <div class="leaderboard item">
+              <img src="{% static 'Ymay/images/homepage-icons/footer-icons/leaderboard-fill.png' %}" alt="" srcset="" />
+              <a href="{% url 'leaderboard' %}"><p class="footer-text">leaderboard</p></a>
+            </div>
+            <div class="gallery item">
+              <img src="{% static 'Ymay/images/homepage-icons/footer-icons/gallery.png' %}" alt="" srcset="" />
+              <a href="{% url 'home_language' %}"><p class="footer-text">Gallery</p></a>
+            </div>
+            <div class="premium item">
+              <img src="{% static 'Ymay/images/homepage-icons/footer-icons/premium.png' %}" alt="" srcset="" />
+              <p class="footer-text">Premium</p>
+            </div>
+            <div class="account item">
+              <img src="{% static 'Ymay/images/homepage-icons/footer-icons/account.png' %}" alt="" srcset="" />
+              <a href="{% url 'account_page' %}"><p class="footer-text">Account</p></a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select Payment Method</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="leaderboardv2-body">
+    <div class="main" style="background-image: none">
+      <div class="container">
+        <div class="content">
+          <section class="people-profile-contents">
+            <div class="select-payment-header">
+                <a href="{% url 'leaderboard' %}">
+              <img class="back" src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset="" />
+                    </a>
+              <div class="right-icons">
+                <img src="{% static 'Ymay/images/people-profile-icons/send.png' %}" alt="" />
+                <img class="more-circle" src="{% static 'Ymay/images/people-profile-icons/more-circle.png' %}" alt="" />
+              </div>
+            </div>
+            <div class="people-profile-details">
+              <div class="people-details">
+                <img class="avater" src="{% static 'Ymay/images/people-profile-icons/avatar.png' %}" alt="" />
+                <p class="people-name">Maryland Winkles</p>
+                <p class="about-people">Joined since 16 May 2020</p>
+              </div>
+              <hr class="line" />
+              <div class="people-all-details">
+                <div class="follower item">
+                  <p class="value">1,725</p>
+                  <p class="title">followers</p>
+                </div>
+                <div class="following item">
+                  <p class="value">256</p>
+                  <p class="title">following</p>
+                </div>
+                <div class="lifetime-xp item">
+                  <p class="value">18,528</p>
+                  <p class="title">lifetime XP</p>
+                </div>
+              </div>
+              <hr class="line" />
+              <div class="follow-msg-btns">
+                <a href="" class="foll-btn btn">
+                  <img src="{% static 'Ymay/images/people-profile-icons/follow.png' %}" alt="" />
+                  <p class="text">Follow</p>
+                </a>
+                <a href="" class="msg-btn btn">
+                  <img src="{% static 'Ymay/images/people-profile-icons/message.png' %}" alt="" />
+                  <p class="text">Message</p>
+                </a>
+              </div>
+              <div class="profile-chart">
+                <div class="chart-details">
+                  <p class="user-name">Maryland Winkles</p>
+                  <p class="user-xp">970 XP</p>
+                </div>
+                <hr class="line" />
+                <canvas id="canvas"></canvas>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const colors = {
+      purple: {
+        default: "rgba(105, 73, 255, 1)",
+        half: "rgba(105, 73, 255, 0.5)",
+        quarter: "rgba(105, 73, 255, 0.25)",
+        zero: "rgba(105, 73, 255, 0)",
+      },
+      indigo: {
+        default: "rgba(80, 102, 120, 1)",
+        quarter: "rgba(80, 102, 120, 0.25)",
+      },
+    };
+
+    const xp = [0, 200, 800, 600, 400, 600, 400, 800, 1000];
+
+    const labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+    const ctx = document.getElementById("canvas").getContext("2d");
+    ctx.canvas.height = 260;
+
+    gradient = ctx.createLinearGradient(0, 25, 0, 300);
+    gradient.addColorStop(0, colors.purple.half);
+    gradient.addColorStop(0.35, colors.purple.quarter);
+    gradient.addColorStop(1, colors.purple.zero);
+
+    const options = {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            fill: true,
+            backgroundColor: gradient,
+            pointBackgroundColor: colors.purple.default,
+            borderColor: colors.purple.default,
+            data: xp,
+            lineTension: 0.2,
+            borderWidth: 4,
+            pointRadius: 0,
+          },
+        ],
+      },
+      options: {
+        layout: {
+          padding: 10,
+        },
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+
+        scales: {
+          x: {
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            grid: {
+              display: false,
+            },
+          },
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+              ticks: {
+                padding: 10,
+                autoSkip: false,
+                maxRotation: 15,
+                minRotation: 15,
+              },
+              grid: {
+                display: false,
+              },
+            },
+          ],
+          yAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: "Weight in KG",
+                padding: 10,
+              },
+              gridLines: {
+                display: false,
+                color: colors.indigo.quarter,
+              },
+              ticks: {
+                beginAtZero: false,
+                max: 63,
+                min: 57,
+                padding: 10,
+              },
+              grid: {
+                display: false,
+              },
+            },
+          ],
+        },
+      },
+    };
+
+    window.onload = function () {
+      window.myLine = new Chart(ctx, options);
+      Chart.defaults.global.defaultFontColor = colors.indigo.default;
+      Chart.defaults.global.defaultFontFamily = "Nunito";
+    };
+  </script>
+</html>

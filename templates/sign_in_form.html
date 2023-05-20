@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>How did you Know</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <div class="sif-contents content">
+            <form action="{% url 'sign_in' %}" method="post">
+                {% csrf_token %}
+                <section class="form-content-section">
+                    <div class="form-contents">
+                        <a href="{% url 'welcome' %}">
+                        <div class="form-back-arrow">
+
+                            <img src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset=""/>
+                        </div>
+                            </a>
+                    </div>
+                    <div class="form-inputs-content">
+                        <div class="txt-content">
+                            <p class="input-title">Hello there 👋</p>
+                            <p class="input-label">Email</p>
+                        </div>
+                        <div class="sif-input form-input">
+                            <input type="email" name="email" id="sif-input" placeholder="jane.smith@yourdomain.com"/>
+                        </div>
+                        <hr class="sif-line input-line"/>
+                        <div class="txt-content">
+                            <p class="input-label">Password</p>
+                        </div>
+                        <div class="sif-input form-input">
+                            <input type="password"  name="password" id="sif-input" placeholder="password"/>
+                        </div>
+                        <hr class="sif-line input-line"/>
+                        <div class="remember-password">
+                            <input type="checkbox" name="remember-password" id="remember-password"/>
+                            <p>Remember me</p>
+                        </div>
+                        <div class="forget-password">
+                            <a href="{% url 'password_reset' %}" class="btn">Forgot Password?</a>
+                        </div>
+                    </div>
+                </section>
+                <!-- continue button  -->
+                <section class="signup-btns">
+                    <div class="continue-btn">
+                       <button type="submit" class="btn m-b-20 btn-primary">Continue</button>
+                    </div>
+                </section>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

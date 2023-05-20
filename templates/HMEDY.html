@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>How did you Know</title>
+    <link rel="stylesheet" href={% static 'Ymay/style.css' %}/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <div class="content">
+            <section class="content-section">
+                <div class="sel-hmedy-contents">
+                    <a class="back-arrow" href="{% url 'hdyk' %}">
+                        <img src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset=""/>
+                    </a>
+                    <div class="expression-img-msg">
+                        <div class="expression-img">
+                            <img src="{% static 'Ymay/images/hmedy-icons/hmedy-exp.png' %}" alt="" srcset=""/>
+                        </div>
+                        <div class="expression-msg">
+                            <img src="{% static 'Ymay/images/hmedy-icons/hmedy-msg-bg.png' %}" alt="" srcset=""/>
+                            <p>How much KSL do you know?</p>
+                        </div>
+                    </div>
+                    <!-- hmedyuage-options  -->
+                    <div class="hmedy-options">
+                        <!-- option  -->
+                        <div class="hmedy-opt option active-option">
+                            <div class="hmedy-opt-img option-img">
+                                <img class="sel-opt-flag" src="{% static 'Ymay/images/hmedy-icons/zero-signal.png' %}" alt=""
+                                     srcset=""/>
+                            </div>
+                            <div class="hmedy-opt-name option-name">
+                                <p class="sel-opt-nam">I just started learning KSL</p>
+                            </div>
+                        </div>
+                        <!-- option  -->
+                        <div class="hmedy-opt option">
+                            <div class="hmedy-opt-img option-img">
+                                <img class="sel-opt-flag" src="{% static 'Ymay/images/hmedy-icons/two-signal.png' %}" alt=""
+                                     srcset=""/>
+                            </div>
+                            <div class="hmedy-opt-name option-name">
+                                <p class="sel-opt-nam">I know some words and phrases</p>
+                            </div>
+                        </div>
+                        <!-- option  -->
+                        <div class="hmedy-opt option">
+                            <div class="hmedy-opt-img option-img">
+                                <img class="sel-opt-flag" src="{% static 'Ymay/images/hmedy-icons/three-signal.png' %}"
+                                     alt="" srcset=""/>
+                            </div>
+                            <div class="hmedy-opt-name option-name">
+                                <p class="sel-opt-nam">I can have a simple conversation</p>
+                            </div>
+                        </div>
+                        <!-- option  -->
+                        <div class="hmedy-opt option">
+                            <div class="hmedy-opt-img option-img">
+                                <img class="sel-opt-flag" src="{% static 'Ymay/images/hmedy-icons/three-signal.png' %}"
+                                     alt="" srcset=""/>
+                            </div>
+                            <div class="hmedy-opt-name option-name">
+                                <p class="sel-opt-nam">I'm at intermediate level or above</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- continue button  -->
+            <section class="signup-btns">
+                <div class="continue-btn">
+                    <a href="{% url 'wryse' %}" class="btn m-b-20 btn-primary">Continue</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    // Get all elements with the class
+    const hmedy_opt = document.querySelectorAll(".hmedy-opt");
+    // Loop through each element and add an event listener to it
+    hmedy_opt.forEach((element) => {
+        element.addEventListener("click", function () {
+            // Add the class of the clicked element
+            this.classList.add("active-option");
+            // Loop through all elements and remove class from non-clicked elements
+            hmedy_opt.forEach((nonClickedElement) => {
+                if (nonClickedElement !== this) {
+                    nonClickedElement.classList.remove("active-option");
+                }
+            });
+        });
+    });
+</script>
+</html>

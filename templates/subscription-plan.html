@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Choose A Subscription Plan</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="main" style="background: linear-gradient(286.17deg, #6949ff 0%, #876dff 100%)">
+    <div class="auto-layout-container">
+        <div class="content">
+            <section class="auto-layout-contents pb-100">
+                <div class="select-payment-header">
+                    <a href="{% url 'homepage' %}">
+                        <img class="back" src="{% static 'Ymay/images/cross-white.png' %}" alt="" srcset=""/>
+                    </a>
+                </div>
+
+                <!-- subscription plan vertical -->
+                <div class="auto-layout-vertical subscription-plan-vertical">
+                    <p class="subscription-plan-title">Choose a subscription plan</p>
+                    <hr class="line">
+
+                    <!-- 1 month plan section -->
+                    <div class="rows border subscription-plan" id="subscription-plan-1"
+                         onclick="subscriptionPlanSelected(1)">
+                        <div class="plan-title">
+                            <div class="heading">
+                                <p>1 Month</p>
+                            </div>
+                            <p class="text">Get over 10% off.</p>
+                        </div>
+
+                        <div class="save-text">
+                            <p>$10.00</p>
+                        </div>
+                    </div>
+
+                    <!-- 3 months plan section -->
+                    <div class="rows border subscription-plan" id="subscription-plan-2"
+                         onclick="subscriptionPlanSelected(2)">
+                        <div class="plan-title">
+                            <div class="heading">
+                                <p>3 Months</p>
+                            </div>
+                            <p class="text">Get over 20% off.</p>
+                        </div>
+
+                        <div class="save-text">
+                            <p>$26.00</p>
+                        </div>
+                    </div>
+
+                    <!-- 6 months plan section -->
+                    <div class="rows border subscription-plan" id="subscription-plan-3"
+                         onclick="subscriptionPlanSelected(3)">
+                        <div class="plan-title">
+                            <div class="heading">
+                                <p>6 Months</p>
+                            </div>
+                            <p class="text">Get over 30% off.</p>
+                        </div>
+
+                        <div class="save-text">
+                            <p>$46.00</p>
+                        </div>
+                    </div>
+
+
+                    <!-- 12 months plan section -->
+                    <div class="rows border subscription-plan" id="subscription-plan-4"
+                         onclick="subscriptionPlanSelected(4)">
+                        <div class="plan-title">
+                            <div class="heading">
+                                <p>12 Months</p>
+                            </div>
+                            <p class="text">Get over 40% off.</p>
+                        </div>
+
+                        <div class="save-text">
+                            <p>$86.00</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+
+            <!-- continue button  -->
+            <section class="signup-btns mt-15">
+                <div class="continue-btn">
+                    <a href="{% url 'select_payment_method' %}" class="btn m-b-20 btn-primary">Continue</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script>
+    function subscriptionPlanSelected(plan_no) {
+        // set all plans background color white
+        $('.subscription-plan').css('background-color', 'white');
+
+        // set all plans border style to default
+        $('.subscription-plan').css('border-width', '2px');
+        $('.subscription-plan').css('border-color', '#eeeeee');
+
+
+        // set selected border style
+        document.getElementById("subscription-plan-" + plan_no).style.borderWidth = '3px';
+        document.getElementById("subscription-plan-" + plan_no).style.borderColor = '#6949FF';
+        // set selected background color
+        document.getElementById("subscription-plan-" + plan_no).style.backgroundColor = 'rgba(105, 73, 255, 0.08)';
+    }
+</script>
+</body>
+
+</html>

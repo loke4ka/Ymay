@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>How did you Know</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <div class="content">
+            <form action="{% url 'register_password' %}" method="post">
+                {% csrf_token %}
+                <section class="form-content-section">
+
+                    <div class="cap-contents form-contents">
+                        <div class="form-back-arrow">
+                            <img src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset=""/>
+                        </div>
+                        <div class="progress-bar">
+                            <img src="{% static 'Ymay/images/cap-icons/100-bar.png' %}" alt="" srcset=""/>
+                        </div>
+                    </div>
+                    <div class="form-inputs-content">
+                        <div class="txt-content">
+                            <p class="input-title">Create a password 🔐</p>
+                            <p class="input-label">Password</p>
+                        </div>
+                        <div class="cap-input form-input">
+                            <input type="password" name="password" id="cap-input" placeholder="password"/>
+                        </div>
+                        <hr class="cap-line input-line"/>
+                    </div>
+
+
+                </section>
+                <!-- continue button  -->
+                <section class="signup-btns">
+                    <div class="continue-btn">
+                        <button type="submit" class="btn m-b-20 btn-primary">Continue</button>
+                    </div>
+
+                </section>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

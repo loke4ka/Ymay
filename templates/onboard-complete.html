@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>onboard-complete</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="container">
+        <div class="content-section">
+          <section class="onboard-complete-upper-sec">
+            <div class="onboard-complete-msg">
+              <p class="msg">Awesome!</p>
+              <img src="{% static 'Ymay/images/onboard-complete/complete-msg.png' %}" alt="" srcset="" width="200px" />
+            </div>
+            <div class="onboard-complete-emoji">
+              <img src="{% static 'Ymay/images/onboard-complete/expression-logo.png' %}" alt="" srcset="" />
+            </div>
+            <div class="onboard-complete-app-name">
+              <h1>Ymay</h1>
+            </div>
+            <div class="onboard-complete-description">
+              <p>Create a profile now so you can save progress and connect with friends. Or you can skip it.</p>
+            </div>
+          </section>
+          <section class="signup-btns">
+            <div class="create-profile">
+              <a href="{% url 'register_name' %}" class="btn m-tb-10 btn-primary">CREATE PROFILE</a>
+            </div>
+            <div class="skip">
+              <a class="btn m-b-10 btn-secondary" href="{% url 'homepage' %}">SKIP</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

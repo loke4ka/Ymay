@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review Summary</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="main" style="background-image: none">
+      <div class="container">
+        <div class="content">
+          <section class="review-payment-contents">
+            <div class="select-payment-header">
+              <img class="back" src="images/back-arrow.png" alt="" srcset="" />
+              <p class="page-title">Review Summary</p>
+            </div>
+            <!-- payment Review -->
+            <div class="review-summary">
+              <p class="title">Diamond</p>
+              <p class="dia-value value">2,000</p>
+              <p class="title">Price</p>
+              <p class="price-value value">$4.00</p>
+              <p class="title">Discount</p>
+              <p class="discount-value value">$0</p>
+              <!-- Horizontal line -->
+              <hr class="line" />
+              <hr class="line" />
+              <p class="title">Total Payment</p>
+              <p class="total-value value">$4.00</p>
+            </div>
+            <p class="heading">Buy More Diamonds</p>
+            <!-- select-paymentuage-options  -->
+            <div class="change-payment-options">
+              <!-- option  -->
+              <div class="change-payment-opt option active-option">
+                <div class="change-payment-opt-img option-img">
+                  <img class="pay-icon" src="images/select-payment-icons/mastercard-icon.png" alt="" srcset="" width="45px" />
+                </div>
+                <div class="change-payment-opt-name option-name">
+                  <p class="pay-name">•••• •••• •••• 4679</p>
+                </div>
+                <div class="change-option">
+                  <a href="http://">Change</a>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- continue button  -->
+          <section class="signup-btns">
+            <div class="continue-btn">
+              <a href="" class="btn m-b-20 btn-primary">Confirm Payment</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    // Get all elements with the class "my-class"
+    const selectPayment = document.querySelectorAll(".select-payment-opt");
+    // Loop through each element and add an event listener to it
+    selectPayment.forEach((element) => {
+      element.addEventListener("click", function () {
+        // Change the background color of the clicked element
+        // console.log();
+        const radioInner = this.querySelectorAll(".radio-inner")[0];
+        console.log(radioInner);
+        selectPayment.forEach((nonClickedElement) => {
+          if (nonClickedElement !== this) {
+            nonClickedElement.classList.remove("active-option");
+            radioInner.classList.remove("show");
+          } else {
+            this.classList.add("active-option");
+            radioInner.classList.add("show");
+          }
+        });
+      });
+    });
+  </script>
+</html>

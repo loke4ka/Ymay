@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select Payment Method</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="leaderboardv2-body">
+    <div class="main" style="background-image: none">
+      <div class="container">
+        <div class="content">
+          <section class="account-full-contents">
+            <div class="account-full-inner">
+              <div class="select-payment-header">
+                <div class="header-left-side">
+                  <img class="back" src="{% static 'Ymay/images/account-full-icons/account-icon.png' %}" alt="" srcset="" />
+                  <p class="page-title">Account</p>
+                </div>
+                <div class="right-icons">
+                  <img id="share" src="{% static 'Ymay/images/people-profile-icons/send.png' %}" alt="" />
+                 <a href="{% url 'settings_page' %}"><img class="more-circle" src="{% static 'Ymay/images/account-full-icons/Setting.png' %}" alt="" /></a>
+                </div>
+              </div>
+              <div class="people-profile-details">
+                <div class="people-details">
+                  <img class="avater" src="{% static 'Ymay/images/people-profile-icons/avatar.png' %}" alt="" />
+                  <p class="people-name">Maryland Winkles</p>
+                  <p class="about-people">Joined since 16 May 2020</p>
+                </div>
+                <hr class="line" />
+                <div class="people-all-details">
+                  <div class="follower item">
+                    <p class="value">1,725</p>
+                    <p class="title">followers</p>
+                  </div>
+                  <div class="following item">
+                    <p class="value">256</p>
+                    <p class="title">following</p>
+                  </div>
+                  <div class="lifetime-xp item">
+                    <p class="value">18,528</p>
+                    <p class="title">lifetime XP</p>
+                  </div>
+                </div>
+                <hr class="line" />
+                <div class="follow-msg-btns">
+                  <a href="" class="foll-btn btn">
+                    <img src="{% static 'Ymay/images/people-profile-icons/follow.png' %}" alt="" />
+                    <p class="text">Follow</p>
+                  </a>
+                  <a href="" class="msg-btn btn">
+                    <img src="{% static 'Ymay/images/people-profile-icons/message.png' %}" alt="" />
+                    <p class="text">Message</p>
+                  </a>
+                </div>
+              </div>
+              <!-- Statistics -->
+              <div class="heading">Your Statistics 📊</div>
+              <div class="statistics-container">
+                <!-- item  -->
+                <div class="s-item-details">
+                  <img src="{% static 'Ymay/images/account-full-icons/fire.png' %}" alt="" />
+                  <div class="s-item-right">
+                    <p class="value">127</p>
+                    <p class="title">Challenges</p>
+                  </div>
+                </div>
+                <!-- item  -->
+                <div class="s-item-details">
+                  <img src="{% static 'Ymay/images/account-full-icons/calender.png' %}" alt="" />
+                  <div class="s-item-right">
+                    <p class="value">458</p>
+                    <p class="title">Lessons Passed</p>
+                  </div>
+                </div>
+                <!-- item  -->
+                <div class="s-item-details">
+                  <img src="{% static 'Ymay/images/account-full-icons/diamond.png' %}" alt="" />
+                  <div class="s-item-right">
+                    <p class="value">957</p>
+                    <p class="title">Total Diamonds</p>
+                  </div>
+                </div>
+                <!-- item  -->
+                <div class="s-item-details">
+                  <img src="{% static 'Ymay/images/account-full-icons/xp.png' %}" alt="" />
+                  <div class="s-item-right">
+                    <p class="value">15,274</p>
+                    <p class="title">Total Lifetime XP</p>
+                  </div>
+                </div>
+                <!-- item  -->
+                <div class="s-item-details">
+                  <img src="{% static 'Ymay/images/account-full-icons/accuracy.png' %}" alt="" />
+                  <div class="s-item-right">
+                    <p class="value">289</p>
+                    <p class="title">Correct Practices</p>
+                  </div>
+                </div>
+                <!-- item  -->
+                <div class="s-item-details">
+                  <img src="{% static 'Ymay/images/account-full-icons/badge.png' %}" alt="" />
+                  <div class="s-item-right">
+                    <p class="value">36</p>
+                    <p class="title">Top 3 Positions</p>
+                  </div>
+                </div>
+              </div>
+              <!-- chart  -->
+              <div class="profile-chart">
+                <div class="chart-details">
+                  <p class="user-name">Your XP this week</p>
+                  <p class="user-xp">970 XP</p>
+                </div>
+                <hr class="line" />
+                <canvas id="canvas"></canvas>
+              </div>
+              <!-- achievements-section -->
+              <div class="heading">Your Achievements 🏆</div>
+              <div class="achievements-section">
+                <div class="achievenment-header">
+                  <div class="total-achieves">
+                    <p class="value">25</p>
+                    <p class="title">Achievements</p>
+                  </div>
+                  <img src="{% static 'Ymay/images/account-full-icons/arrow-right.png' %}" alt="" />
+                </div>
+                <hr class="line" />
+                <!-- achievement item -->
+                <div class="achieves-details king-achieve">
+                  <div class="img-level">
+                    <img class="icon" src="{% static 'Ymay/images/achievemts-icons/king.png' %}" alt="" />
+                    <p class="level">LEVEL 5</p>
+                  </div>
+                  <div class="item-achieves">
+                    <p class="title">Great King</p>
+                    <p class="sub-title">Get 5000 XP in this month to get achievements.</p>
+                    <div class="item-progress">
+                      <progress value="3700" min="0" max="5000"></progress>
+                      <p class="progress-txt">3.7K / 5K</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- achievement item -->
+                <div class="achieves-details brain-achieve">
+                  <div class="img-level">
+                    <img class="icon" src="{% static 'Ymay/images/achievemts-icons/brain.png' %}" alt="" />
+                    <p class="level">LEVEL 3</p>
+                  </div>
+                  <div class="item-achieves">
+                    <p class="title">Einstein's Brain</p>
+                    <p class="sub-title">Complete difficult challenges 20x to earn this.</p>
+                    <div class="item-progress">
+                      <progress value="12" min="0" max="20"></progress>
+                      <p class="progress-txt">12 / 20</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- achievement item -->
+                <div class="achieves-details knight-achieve">
+                  <div class="img-level">
+                    <img class="icon" src="{% static 'Ymay/images/achievemts-icons/knight.png' %}" alt="" />
+                    <p class="level">LEVEL 6</p>
+                  </div>
+                  <div class="item-achieves">
+                    <p class="title">Tough Knight</p>
+                    <p class="sub-title">Learn 50 new words to earn this award.</p>
+                    <div class="item-progress">
+                      <progress value="46" min="0" max="50"></progress>
+                      <p class="progress-txt">46 / 50</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- share-model  -->
+            <div class="share-model">
+              <div class="share-model-inner" id="cancel-share"></div>
+              <div class="share-model-contents">
+                <p class="title share">Share</p>
+                <hr class="line" />
+                <!-- share platforms  -->
+                <!-- platform -->
+                <div class="a-share-platforms">
+                  <a href="">
+                    <div class="a-platform">
+                      <img src="{% static 'Ymay/images/social-icons/whatsapp.png' %}" alt="" class="icon" />
+                      <p class="title">Whatsapp</p>
+                    </div>
+                  </a>
+                  <!-- platform -->
+                  <a href="">
+                    <div class="a-platform">
+                      <img src="{% static 'Ymay/images/social-icons/twitter.png' %}" alt="" class="icon" />
+                      <p class="title">Twitter</p>
+                    </div>
+                  </a>
+                  <!-- platform -->
+                  <a href="">
+                    <div class="a-platform">
+                      <img src="{% static 'Ymay/images/social-icons/fb.png' %}" alt="" class="icon" />
+                      <p class="title">Facebook</p>
+                    </div>
+                  </a>
+                  <!-- platform -->
+                  <a href="">
+                    <div class="a-platform">
+                      <img src="{% static 'Ymay/images/social-icons/insta.png' %}" alt="" class="icon" />
+                      <p class="title">Instagram</p>
+                    </div>
+                  </a>
+                  <!-- platform -->
+                  <a href="">
+                    <div class="a-platform">
+                      <img src="{% static 'Ymay/images/social-icons/fb.png' %}" alt="" class="icon" />
+                      <p class="title">Facebook</p>
+                    </div>
+                  </a>
+                  <!-- platform -->
+                  <a href="">
+                    <div class="a-platform">
+                      <img src="{% static 'Ymay/images/social-icons/tiktok.png' %}" alt="" class="icon" />
+                      <p class="title">Tiktok</p>
+                    </div>
+                  </a>
+                  <!-- platform -->
+                  <a href="">
+                    <div class="a-platform">
+                      <img src="{% static 'Ymay/images/social-icons/chat.png' %}" alt="" class="icon" />
+                      <p class="title">Chat</p>
+                    </div>
+                  </a>
+                  <!-- platform -->
+                  <a href="">
+                    <div class="a-platform">
+                      <img src="{% static 'Ymay/images/social-icons/wechat.png' %}" alt="" class="icon" />
+                      <p class="title">Wechat</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="homepage-footer">
+            <div class="home item">
+              <img src="{% static 'Ymay/images/homepage-icons/footer-icons/home.png' %}" alt="" srcset="" />
+              <a href="{% url 'homepage' %}"><p class="footer-text">Home</p></a>
+            </div>
+            <div class="leaderboard item">
+              <img src="{% static 'Ymay/images/homepage-icons/footer-icons/leaderboard.png' %}" alt="" srcset="" />
+              <p class="footer-text">leaderboard</p>
+            </div>
+            <div class="gallery item">
+              <img src="{% static 'Ymay/images/homepage-icons/footer-icons/gallery.png' %}" alt="" srcset="" />
+              <a href="{% url 'home_language' %}"><p class="footer-text">Gallery</p></a>
+            </div>
+            <div class="premium item">
+              <img src="{% static 'Ymay/images/homepage-icons/footer-icons/premium.png' %}" alt="" srcset="" />
+              <a href="{% url 'premium_go' %}"><p class="footer-text">Premium</p></a>
+            </div>
+            <div class="account item">
+                <!--Забыли иконку  -->
+              <img src="{% static 'Ymay/images/homepage-icons/footer-icons/account.png' %}" alt="" srcset="" />
+              <a href="{% url 'account_page' %}"><p class="footer-text">Account</p></a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const colors = {
+      purple: {
+        default: "rgba(105, 73, 255, 1)",
+        half: "rgba(105, 73, 255, 0.5)",
+        quarter: "rgba(105, 73, 255, 0.25)",
+        zero: "rgba(105, 73, 255, 0)",
+      },
+      indigo: {
+        default: "rgba(80, 102, 120, 1)",
+        quarter: "rgba(80, 102, 120, 0.25)",
+      },
+    };
+
+    const xp = [0, 200, 800, 600, 400, 600, 400, 800, 1000];
+
+    const labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+    const ctx = document.getElementById("canvas").getContext("2d");
+    ctx.canvas.height = 260;
+
+    gradient = ctx.createLinearGradient(0, 25, 0, 300);
+    gradient.addColorStop(0, colors.purple.half);
+    gradient.addColorStop(0.35, colors.purple.quarter);
+    gradient.addColorStop(1, colors.purple.zero);
+
+    const options = {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            fill: true,
+            backgroundColor: gradient,
+            pointBackgroundColor: colors.purple.default,
+            borderColor: colors.purple.default,
+            data: xp,
+            lineTension: 0.2,
+            borderWidth: 4,
+            pointRadius: 0,
+          },
+        ],
+      },
+      options: {
+        layout: {
+          padding: 10,
+        },
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+
+        scales: {
+          x: {
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            grid: {
+              display: false,
+            },
+          },
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+              ticks: {
+                padding: 10,
+                autoSkip: false,
+                maxRotation: 15,
+                minRotation: 15,
+              },
+              grid: {
+                display: false,
+              },
+            },
+          ],
+          yAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: "Weight in KG",
+                padding: 10,
+              },
+              gridLines: {
+                display: false,
+                color: colors.indigo.quarter,
+              },
+              ticks: {
+                beginAtZero: false,
+                max: 63,
+                min: 57,
+                padding: 10,
+              },
+              grid: {
+                display: false,
+              },
+            },
+          ],
+        },
+      },
+    };
+
+    window.onload = function () {
+      window.myLine = new Chart(ctx, options);
+      Chart.defaults.global.defaultFontColor = colors.indigo.default;
+      Chart.defaults.global.defaultFontFamily = "Nunito";
+    };
+  </script>
+  <script>
+    let profilePic = document.getElementById("profile-pic");
+    let inputFile = document.getElementById("input-file");
+
+    inputFile.onchange = function () {
+      profilePic.src = URL.createObjectURL(inputFile.files[0]);
+    };
+  </script>
+  <script>
+    var share_btn = document.getElementById("share");
+    var share_model = document.getElementsByClassName("share-model")[0];
+    var cancel_btn = document.getElementById("cancel-share");
+    share_btn.addEventListener("click", function () {
+      share_model.style.display = "block";
+    });
+    cancel_btn.addEventListener("click", function () {
+      share_model.style.display = "none";
+    });
+  </script>
+</html>

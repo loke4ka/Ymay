@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Payment Method</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="main" style="background-image: none">
+    <div class="container">
+      <div class="content">
+        <section class="select-payment-contents">
+          <div class="select-payment-header">
+            <img class="back" src="images/back-arrow.png" alt="" srcset="" />
+            <p class="page-title">Select Payment Method</p>
+            <img src="images/plus-icon.png" alt="" class="plus" />
+          </div>
+          <!-- select-paymentuage-options  -->
+          <div class="select-payment-options">
+            <!-- option  -->
+            <div class="select-payment-opt option active-option">
+              <div class="select-payment-opt-img option-img">
+                <img class="pay-icon" src="images/select-payment-icons/paypal-icon.png" alt="" srcset="" width="45px" />
+              </div>
+              <div class="select-payment-opt-name option-name">
+                <p class="pay-name">Paypal</p>
+              </div>
+              <div class="radio-btn">
+                <div class="radio-inner"></div>
+              </div>
+            </div>
+            <!-- option  -->
+            <div class="select-payment-opt option">
+              <div class="select-payment-opt-img option-img">
+                <img class="pay-icon" src="images/select-payment-icons/google-icon.png" alt="" srcset="" width="45px" />
+              </div>
+              <div class="select-payment-opt-name option-name">
+                <p class="pay-name">Google Search</p>
+              </div>
+              <div class="radio-btn">
+                <div class="radio-inner"></div>
+              </div>
+            </div>
+            <!-- option  -->
+            <div class="select-payment-opt option">
+              <div class="select-payment-opt-img option-img">
+                <img class="pay-icon" src="images/select-payment-icons/apple-icon.png" alt="" srcset="" width="45px" />
+              </div>
+              <div class="select-payment-opt-name option-name">
+                <p class="pay-name">Apple Pay</p>
+              </div>
+              <div class="radio-btn">
+                <div class="radio-inner"></div>
+              </div>
+            </div>
+            <!-- option  -->
+            <div class="select-payment-opt option">
+              <div class="select-payment-opt-img option-img">
+                <img class="pay-icon" src="images/select-payment-icons/mastercard-icon.png" alt="" srcset=""
+                  width="45px" />
+              </div>
+              <div class="select-payment-opt-name option-name">
+                <p class="pay-name">•••• •••• •••• 4679</p>
+              </div>
+              <div class="radio-btn">
+                <div class="radio-inner"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- continue button  -->
+        <section class="signup-btns">
+          <div class="continue-btn">
+            <a href="" class="btn m-b-20 btn-primary">Continue</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  // Get all elements with the class "my-class"
+  const selectPayment = document.querySelectorAll(".select-payment-opt");
+  // Loop through each element and add an event listener to it
+  selectPayment.forEach((element) => {
+    element.addEventListener("click", function () {
+      // Change the background color of the clicked element
+      // console.log();
+      const radioInner = this.querySelectorAll(".radio-inner")[0];
+      console.log(radioInner);
+      selectPayment.forEach((nonClickedElement) => {
+        if (nonClickedElement !== this) {
+          nonClickedElement.classList.remove("active-option");
+          radioInner.classList.remove("show");
+        } else {
+          this.classList.add("active-option");
+          radioInner.classList.add("show");
+        }
+      });
+    });
+  });
+</script>
+
+</html>

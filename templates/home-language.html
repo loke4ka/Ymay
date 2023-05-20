@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Homepage</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+    <style>
+
+        .video-container {
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <div class="content">
+            <!-- homepage navbar  -->
+            <section class="homepage-navbar-sec">
+                <div class="homepage-navbar">
+                    <!-- language-flag -->
+                    <div class="language-flag item">
+                        <div class="img-container">
+                            <img src="{% static 'Ymay/images/homepage-icons/navbar-icons/usa-flag.png' %}" alt=""
+                                 srcset=""/>
+                        </div>
+                        <p class="nav-text">EN</p>
+                    </div>
+                    <!-- fire points  -->
+                    <div class="fire-points item">
+                        <img src="{% static 'Ymay/images/homepage-icons/navbar-icons/fire-icon.png' %}" alt=""
+                             srcset=""/>
+                        <p class="nav-text">4</p>
+                    </div>
+                    <!-- diamond-points -->
+                    <div class="diamond-points item">
+                        <img src="{% static 'Ymay/images/homepage-icons/navbar-icons/points-icon.png' %}" alt=""
+                             srcset=""/>
+                        <p class="nav-text">957</p>
+                    </div>
+                    <!-- stars  -->
+                    <div class="stars item">
+                        <img src="{% static 'Ymay/images/homepage-icons/navbar-icons/star-icon.png' %}" alt=""
+                             srcset=""/>
+                        <p class="nav-text"></p>
+                    </div>
+                </div>
+                <div class="expanded-navbar">
+                    <!-- language expanded options -->
+                    <div class="expanded-lang-flag item">
+                        <div class="expanded-inner"></div>
+                        <img class="expand-arrow"
+                             src="{% static 'Ymay/images/homepage-icons/navbar-icons/expand-arrow.png' %}" alt=""
+                             srcset=""/>
+                        <div class="lang-opts expanded-container">
+                            <!-- language option -->
+                            <div class="exp-lang-opt">
+                                <img class="opt-img"
+                                     src="{% static 'Ymay/images/homepage-icons/navbar-icons/usa-flag.png' %}" alt=""
+                                     srcset=""/>
+                                <p class="opt-title">English</p>
+                            </div>
+                            <!-- language option -->
+                            <div class="exp-lang-opt">
+                                <img class="opt-img"
+                                     src="{% static 'Ymay/images/homepage-icons/navbar-icons/kazakh-flag.png' %}" alt=""
+                                     srcset=""/>
+                                <p class="opt-title">Kazakh</p>
+                            </div>
+                            <!-- language option -->
+                            <div class="exp-lang-opt">
+                                <img class="opt-img"
+                                     src="{% static 'Ymay/images/homepage-icons/navbar-icons/plus-lang.png' %}" alt=""
+                                     srcset=""/>
+                                <p class="opt-title">Add</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expanded-firepoints">
+                        <div class="expanded-inner"></div>
+                        <img class="expand-arrow"
+                             src="{% static 'Ymay/images/homepage-icons/navbar-icons/expand-arrow.png' %}" alt=""
+                             srcset=""/>
+                        <div class="firepoint-opts expanded-container">
+                            <!-- challenges days -->
+                            <div class="challenges-day">
+                                <div class="inner">
+                                    <p class="title">Challenges (day)</p>
+                                    <p class="days">4 / 14</p>
+                                </div>
+                                <div class="progress">
+                                    <progress id="challenges-day" value="4" max="14"></progress>
+                                </div>
+                            </div>
+                            <!-- challenge done and reamining -->
+                            <div class="done-remaining">
+                                <div class="challenge-done item">
+                                    <img src="{% static 'Ymay/images/homepage-icons/navbar-icons/challenge-fire-icon.png' %}"
+                                         alt=""/>
+                                    <p class="title">4 days</p>
+                                    <p class="sub-title">challenge done</p>
+                                </div>
+                                <div class="challenge-remaining item">
+                                    <img src="{% static 'Ymay/images/homepage-icons/navbar-icons/challenge-calender-icon.png' %}"
+                                         alt=""/>
+                                    <p class="title">10 days</p>
+                                    <p class="sub-title">remaining</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- homepage main contents  -->
+            <form method="POST" action="{% url 'home_language' %}" name="letter-form">
+                {% csrf_token %}
+                <input type="hidden" name="letter" id="letter-input" value="{{ letter }}">
+                <!-- Добавлено скрытое поле для хранения выбранной буквы || -->
+                <section class="home-lang-main-contents">
+                    <!-- home langauge header  -->
+                    <div class="home-lang-header">
+                        <a href="{% url 'homepage' %}"> <img src="{% static 'Ymay/images/back-arrow.png' %}" alt=""
+                                                             srcset=""/></a>
+                        <p class="title">Gallery</p>
+                    </div>
+                    <div class="letters-content">
+                        <a class="letter letter-bg" name="А" href="javascript:submitForm('А')" data-letter="А">A</a>
+                        <a class="letter" name="Ә" href="javascript:submitForm('Ә')" data-letter="Ә">Ә</a>
+                        <a class="letter" data-letter="Б" href="javascript:submitForm('Б')">Б</a>
+                        <a class="letter" name="В" href="javascript:submitForm('В')" data-letter="В">B</a>
+                        <a class="letter" name="Г" href="javascript:submitForm('Г')" data-letter="Г">Г</a>
+                        <a class="letter" name="Ғ" href="javascript:submitForm('Ғ')" data-letter="Ғ">Ғ</a>
+                        <a class="letter" name="Д" href="javascript:submitForm('Д')" data-letter="Д">Д</a>
+                        <a class="letter" name="Е" href="javascript:submitForm('Е')" data-letter="Е">E</a>
+                        <a class="letter" name="Ё" href="javascript:submitForm('Ё')" data-letter="Ё">Ё</a>
+                        <a class="letter" name="Ж" href="javascript:submitForm('Ж')" data-letter="Ж">Ж</a>
+                        <a class="letter" name="З" href="javascript:submitForm('З')" data-letter="З">З</a>
+                        <a class="letter" name="И" href="javascript:submitForm('И')" data-letter="И">И</a>
+                        <a class="letter" name="Й" href="javascript:submitForm('Й')" data-letter="Й">Й</a>
+                        <a class="letter" name="К" href="javascript:submitForm('К')" data-letter="К">К</a>
+                        <a class="letter" name="Қ" href="javascript:submitForm('Қ')" data-letter="Қ">Қ</a>
+                        <a class="letter" name="Л" href="javascript:submitForm('Л')" data-letter="Л">Л</a>
+                        <a class="letter" name="М" href="javascript:submitForm('М')" data-letter="М">М</a>
+                        <a class="letter" name="Н" href="javascript:submitForm('Н')" data-letter="Н">Н</a>
+                        <a class="letter" name="Ң" href="javascript:submitForm('Ң')" data-letter="Ң">Ң</a>
+                        <a class="letter" name="О" href="javascript:submitForm('О')" data-letter="О">О</a>
+                        <a class="letter" name="Ө" href="javascript:submitForm('Ө')" data-letter="Ө">Ө</a>
+                        <a class="letter" name="П" href="javascript:submitForm('П')" data-letter="П">П</a>
+                        <a class="letter" name="Р" href="javascript:submitForm('Р')" data-letter="Р">Р</a>
+                        <a class="letter" name="С" href="javascript:submitForm('С')" data-letter="С">С</a>
+                        <a class="letter" name="Т" href="javascript:submitForm('Т')" data-letter="Т">Т</a>
+                        <a class="letter" name="У" href="javascript:submitForm('У')" data-letter="У">У</a>
+                        <a class="letter" name="Ұ" href="javascript:submitForm('Ұ')" data-letter="Ұ">Ұ</a>
+                        <a class="letter" name="Ү" href="javascript:submitForm('Ү')" data-letter="Ү">Ү</a>
+                        <a class="letter" data-letter="Ф" href="javascript:submitForm('Ф')">Ф</a>
+                        <a class="letter" data-letter="Х" href="javascript:submitForm('Х')">Х</a>
+                        <a class="letter" data-letter="Һ" href="javascript:submitForm('Һ')">Һ</a>
+                        <a class="letter" data-letter="Ц" href="javascript:submitForm('Ц')">Ц</a>
+                        <a class="letter" data-letter="Ч" href="javascript:submitForm('Ч')">Ч</a>
+                        <a class="letter" data-letter="Ш" href="javascript:submitForm('Ш')">Ш</a>
+                        <a class="letter" data-letter="Щ" href="javascript:submitForm('Щ')">Щ</a>
+                        <a class="letter" data-letter="Ъ" href="javascript:submitForm('Ъ')">Ъ</a>
+                        <a class="letter" data-letter="Ы" href="javascript:submitForm('Ы')">Ы</a>
+                        <a class="letter" data-letter="I" href="javascript:submitForm('I')">I</a>
+                        <a class="letter" data-letter="Ь" href="javascript:submitForm('Ь')">Ь</a>
+                        <a class="letter" data-letter="Э" href="javascript:submitForm('Э')">Э</a>
+                        <a class="letter" data-letter="Ю" href="javascript:submitForm('Ю')">Ю</a>
+                        <a class="letter" data-letter="Я" href="javascript:submitForm('Я')">Я</a>
+
+                    </div>
+                    <div class=" sel-letter-container">
+                        <p class="sel-letter">{{ letter }}</p>
+                    </div>
+                    <!-- video section  -->
+                    {% load embed_video_tags %}
+
+                    {% video video_url as my_video %}
+                        {% if my_video %}
+                            <div class="video-container">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    {% video my_video backend='embed_video.backends.YoutubeBackend' %}
+                                </div>
+                            </div>
+                            <style>
+                                .video-container {
+                                    margin-top: 20px;
+                                }
+
+                                .embed-responsive-16by9 iframe {
+                                    width: 390px;
+                                    height: 292px;
+
+                                    border-radius: 39px;
+                                    overflow: hidden;
+                                }
+                            </style>
+                        {% endif %}
+                    {% endvideo %}
+
+                    <div class="learn-sign">
+                        <span class="btn">Learn this sign</span>
+                    </div>
+                    <!-- Camera section  -->
+                    <div class="camera-section">
+                        <p class="camera-pre">Your camera preview</p>
+                        <div class="video-container">
+                            <video autoplay="true" id="videoCapture"></video>
+                            <canvas id="canvas"></canvas>
+                        </div>
+                        <p id="accuracyPercentage" class="accuracy">Accuracy: --%</p>
+                        <button id="checkGestureButton" class="btn">Check Gesture</button>
+                    </div>
+
+
+                </section>
+            </form>
+            <!-- footer  -->
+            <section class="homepage-footer">
+                <div class="home item">
+                    <img src="{% static 'Ymay/images/homepage-icons/footer-icons/home.png' %}" alt="" srcset=""/>
+                    <a href="{% url 'homepage' %}"><p class="footer-text">Home</p></a>
+                </div>
+                <div class="leaderboard item">
+                    <img src="{% static 'Ymay/images/homepage-icons/footer-icons/leaderboard.png' %}" alt=""
+                         srcset=""/>
+                    <p class="footer-text">leaderboard</p>
+                </div>
+                <div class="gallery item">
+                    <img src="{% static 'Ymay/images/homepage-icons/footer-icons/gallery-fill.png' %}" alt=""
+                         srcset=""/>
+                    <a href="{% url 'home_language' %}"><p class="footer-text">Gallery</p></a>
+                </div>
+                <div class="premium item">
+                    <img src="{% static 'Ymay/images/homepage-icons/footer-icons/premium.png' %}" alt="" srcset=""/>
+                    <a href="{% url 'premium_go' %}"><p class="footer-text">Premium</p></a>
+                </div>
+                <div class="account item">
+                    <img src="{% static 'Ymay/images/homepage-icons/footer-icons/account.png' %}" alt="" srcset=""/>
+                    <a href="{% url 'account_page' %}"><p class="footer-text">Account</p></a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Функция для отображения контуров рук
+    function trackHands() {
+        var video = document.getElementById('videoCapture');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        // Загрузка модуля трекинга рук
+        var tracker = new tracking.ObjectTracker('hand');
+        tracker.setStepSize(1.7);
+        tracking.track('#videoCapture', tracker, {camera: true});
+
+        tracker.on('track', function (event) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            event.data.forEach(function (rect) {
+                context.strokeStyle = '#FF0000';
+                context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+            });
+        });
+    }
+
+    // Запуск отслеживания контуров рук при загрузке страницы
+    window.onload = function () {
+        trackHands();
+    };
+
+</script>
+{% csrf_token %}
+<script>
+    // Функция для отправки видеопотока на бэкенд и обработки ответа
+    function checkGesture() {
+        // Получение элементов страницы
+        var video = document.getElementById('videoCapture');
+        var accuracyElement = document.getElementById('accuracyPercentage');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        // Остановка видеопотока
+        video.pause();
+
+        // Получение кадра из видеопотока
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        var frameData = canvas.toDataURL('image/jpeg');
+
+        // Отправка данных на бэкенд
+        fetch('/home_language/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken') // Получение CSRF-токена
+            },
+            body: JSON.stringify({frame: frameData})
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Получение процента успешности и отображение его пользователю
+                var accuracy = data.accuracy;
+                accuracyElement.textContent = 'Accuracy: ' + accuracy + '%';
+
+                // Возобновление видеопотока
+                video.play();
+            })
+            .catch(error => {
+                console.log('An error occurred:', error);
+            });
+    }
+
+    // Обработчик нажатия на кнопку "Проверить жест"
+    var checkGestureButton = document.getElementById('checkGestureButton');
+    checkGestureButton.addEventListener('click', checkGesture);
+
+    // Функция для получения CSRF-токена из cookie
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+</script>
+
+<script>
+    // Добавлено JS-функция для отправки формы
+    function submitForm(letter) {
+        document.getElementById('letter-input').value = letter;
+        document.forms['letter-form'].submit();
+    }
+</script>
+
+<script>
+    var language_flag = document.getElementsByClassName("language-flag")[0];
+    var fire_points = document.getElementsByClassName("fire-points")[0];
+    var expanded_lang_flag = document.getElementsByClassName("expanded-lang-flag")[0];
+    var expanded_firepoints = document.getElementsByClassName("expanded-firepoints")[0];
+    language_flag.addEventListener("click", function () {
+        expanded_lang_flag.classList.add("show");
+        expanded_firepoints.classList.remove("show");
+    });
+    fire_points.addEventListener("click", function () {
+        expanded_lang_flag.classList.remove("show");
+        expanded_firepoints.classList.add("show");
+    });
+</script>
+<script>
+    // Get all elements with the class
+    const letter = document.querySelectorAll(".letter");
+    const sel_letter = document.getElementsByClassName("sel-letter")[0];
+    // Loop through each element and add an event listener to it
+    letter.forEach((element) => {
+        element.addEventListener("click", function () {
+            // Loop through all elements and remove class from non-clicked elements
+            letter.forEach((nonClickedElement) => {
+                if (nonClickedElement !== this) {
+                    nonClickedElement.classList.remove("letter-bg");
+                } else {
+                    // Add the class of the clicked element
+                    this.classList.add("letter-bg");
+                    sel_letter.innerHTML = this.innerHTML;
+                }
+            });
+        });
+    });
+</script>
+<!-- Capture videos -->
+<script>
+    var learnSign = document.querySelector(".learn-sign");
+    var cameraPreview = document.querySelector(".camera-section");
+    var video = document.querySelector("#videoCapture");
+    learnSign.addEventListener("click", function () {
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices
+                .getUserMedia({video: true})
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function (err0r) {
+                    console.log("Something went wrong!");
+                });
+        }
+        cameraPreview.classList.add("show");
+    });
+</script>
+
+
+</html>

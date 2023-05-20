@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>How did you Know</title>
+    <link rel="stylesheet" href={% static 'Ymay/style.css' %}/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+    <div class="container">
+        <div class="content">
+            <section class="content-section">
+                <div class="sel-tiwyca-contents">
+                    <div class="back-arrow">
+                        <img src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset=""/>
+                    </div>
+                    <div class="expression-img-msg">
+                        <div class="expression-img">
+                            <img src="{% static 'Ymay/images/tiwyca-icons/tiwyca-exp.png' %}" alt="" srcset=""/>
+                        </div>
+                        <div class="expression-msg">
+                            <img src="{% static 'Ymay/images/tiwyca-icons/tiwyca-msg-bg.png' %}" alt="" srcset=""/>
+                            <p>This is what you can achieve!</p>
+                        </div>
+                    </div>
+                    <!-- tiwyca-info-content  -->
+                    <div class="tiwyca-info-content">
+                        <div class="tiwyca-info">
+                            <div class="tiwyca-icon">
+                                <img src="{% static 'Ymay/images/tiwyca-icons/speak-icon.png' %}" alt=""/>
+                            </div>
+                            <div class="tiwyca-txt-info">
+                                <p class="title">Speak fluently and confidently</p>
+                                <p class="description">5,000+ stress-free interactive exercises</p>
+                            </div>
+                        </div>
+                        <hr class="tiwyca-line"/>
+                        <div class="tiwyca-info">
+                            <div class="tiwyca-icon">
+                                <img src="{% static 'Ymay/images/tiwyca-icons/vocab-icon.png' %}" alt=""/>
+                            </div>
+                            <div class="tiwyca-txt-info">
+                                <p class="title">Mastering a lot of vocabulary</p>
+                                <p class="description">2000+ practical signs and phrases</p>
+                            </div>
+                        </div>
+                        <hr class="tiwyca-line"/>
+                        <div class="tiwyca-info">
+                            <div class="tiwyca-icon">
+                                <img src="{% static 'Ymay/images/tiwyca-icons/clock-icon.png' %}" alt=""/>
+                            </div>
+                            <div class="tiwyca-txt-info">
+                                <p class="title">Cultivate study habits</p>
+                                <p class="description">Smart reminders, fun challenges, and more</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- continue button  -->
+            <section class="signup-btns">
+                <div class="continue-btn">
+                    <a href="{% url '' %}" class="btn m-b-20 btn-primary">Continue</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>

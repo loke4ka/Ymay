@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Light Premium Version Fit</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="main" style="background: linear-gradient(286.17deg, #6949ff 0%, #876dff 100%)">
+      <div class="auto-layout-container">
+        <div class="content">
+          <section class="auto-layout-contents">
+            <div class="select-payment-header">
+              <img class="back" src="{% static 'Ymay/images/back-arrow-white.png' %}" alt="" srcset="" />
+              <p class="page-title text-white">Premium</p>
+            </div>
+            <!-- Auto Layout Horizontal -->
+            <div class="auto-layout-horizantol">
+              <img src="{% static 'Ymay/images/light-premium-version-fit-icons/main-icon.png' %}" alt="Icon" />
+              <p>Get a better & super fast learning up to 5x with premium!</p>
+            </div>
+
+            <!-- Auto Layout Vertical -->
+            <div class="auto-layout-vertical">
+              <div class="rows">
+                <div class="right-img">
+                  <img src="{% static 'Ymay/images/light-premium-version-fit-icons/diamonds.png' %}" alt="" />
+                </div>
+                <div class="title-progress">
+                  <div class="heading">Unlimited Diamonds</div>
+                  <p class="text">Get unlimited diamonds to make the learning process easier.</p>
+                </div>
+              </div>
+              <hr class="line" />
+
+              <div class="rows">
+                <div class="right-img">
+                  <img src="{% static 'Ymay/images/light-premium-version-fit-icons/clock.png' %}" alt="" />
+                </div>
+                <div class="title-progress">
+                  <div class="heading">Lessons Reminder</div>
+                  <p class="text">Time reminder feature to study, so you never miss it.</p>
+                </div>
+              </div>
+              <hr class="line" />
+
+              <div class="rows">
+                <div class="right-img">
+                  <img src="{% static 'Ymay/images/light-premium-version-fit-icons/calender.png' %}" alt="" />
+                </div>
+                <div class="title-progress">
+                  <div class="heading">Learning Calendar</div>
+                  <p class="text">The learning calendar feature makes it more organized.</p>
+                </div>
+              </div>
+              <hr class="line" />
+
+              <div class="rows">
+                <div class="right-img">
+                  <img src="{% static 'Ymay/images/light-premium-version-fit-icons/boost.png' %}" alt="" />
+                </div>
+                <div class="title-progress">
+                  <div class="heading">Boost Your XP</div>
+                  <p class="text">Get more XP with premium subscription.</p>
+                </div>
+              </div>
+              <hr class="line" />
+
+              <div class="rows">
+                <div class="right-img">
+                  <img src="{% static 'Ymay/images/light-premium-version-fit-icons/learning.png' %}" alt="" />
+                </div>
+                <div class="title-progress">
+                  <div class="heading">Learning Ebook</div>
+                  <p class="text">Bonus learning ebook so you can read it anytime.</p>
+                </div>
+              </div>
+              <hr class="line" />
+
+              <div class="rows">
+                <div class="right-img">
+                  <img src="{% static 'Ymay/images/light-premium-version-fit-icons/star.png' %}" alt="" />
+                </div>
+                <div class="title-progress">
+                  <div class="heading">Learn Better</div>
+                  <p class="text">Better and complete modules for the learning process.</p>
+                </div>
+              </div>
+              <hr class="line" />
+
+              <div class="rows">
+                <div class="right-img">
+                  <img src="{% static 'Ymay/images/light-premium-version-fit-icons/waiting.png' %}" alt="" />
+                </div>
+                <div class="title-progress">
+                  <div class="heading">No Waiting Time</div>
+                  <p class="text">Learn fast with no waitingtime or delay.</p>
+                </div>
+              </div>
+              <hr class="line" />
+
+              <div class="rows">
+                <div class="right-img">
+                  <img src="{% static 'Ymay/images/light-premium-version-fit-icons/ads.png' %}" alt="" />
+                </div>
+                <div class="title-progress">
+                  <div class="heading">Free and No Ads</div>
+                  <p class="text">Ad-free and hassle-free with a premium subscription.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- continue button  -->
+          <section class="signup-btns mt-15">
+            <div class="continue-btn">
+              <a href="{% url 'subscribe_plan' %}" class="btn m-b-20 btn-primary">Go Premium Now</a>
+            </div>
+
+            <div class="skip">
+              <a class="btn m-b-10 btn-secondary color-light" href="http://">No, Thanks</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

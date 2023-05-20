@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How did you Know</title>
+    <link rel="stylesheet" href={% static 'Ymay/style.css' %} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="container">
+        <div class="content">
+          <section class="content-section">
+            <div class="sel-wiydst-contents">
+              <div class="back-arrow">
+                <img src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset="" />
+              </div>
+              <div class="expression-img-msg">
+                <div class="expression-img">
+                  <img src="{% static 'Ymay/images/wiydst-icons/wiydst-exp.png' %}" alt="" srcset="" />
+                </div>
+                <div class="expression-msg">
+                  <img src="{% static 'Ymay/images/wiydst-icons/wiydst-msg-bg.png' %} " alt="" srcset="" />
+                  <p>What is your daily study target?</p>
+                </div>
+              </div>
+              <!-- wiydst-options  -->
+              <div class="wiydst-options">
+                <!-- option  -->
+                <div class="wiydst-opt option active-option">
+                  <div class="wiydst-opt-img option-img">
+                    <p>5 mins / day</p>
+                  </div>
+                  <div class="wiydst-opt-name option-name">
+                    <p class="sel-opt-nam">Relax</p>
+                  </div>
+                </div>
+                <!-- option  -->
+                <div class="wiydst-opt option">
+                  <div class="wiydst-opt-img option-img">
+                    <p>10 mins / day</p>
+                  </div>
+                  <div class="wiydst-opt-name option-name">
+                    <p class="sel-opt-nam">Normal</p>
+                  </div>
+                </div>
+                <!-- option  -->
+                <div class="wiydst-opt option">
+                  <div class="wiydst-opt-img option-img">
+                    <p>15 mins / day</p>
+                  </div>
+                  <div class="wiydst-opt-name option-name">
+                    <p class="sel-opt-nam">Serious</p>
+                  </div>
+                </div>
+                <!-- option  -->
+                <div class="wiydst-opt option">
+                  <div class="wiydst-opt-img option-img">
+                    <p>30 mins / day</p>
+                  </div>
+                  <div class="wiydst-opt-name option-name">
+                    <p class="sel-opt-nam">Great</p>
+                  </div>
+                </div>
+                <!-- option  -->
+                <div class="wiydst-opt option">
+                  <div class="wiydst-opt-img option-img">
+                    <p>60 mins / day</p>
+                  </div>
+                  <div class="wiydst-opt-name option-name">
+                    <p class="sel-opt-nam">Awesome</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- continue button  -->
+          <section class="signup-btns">
+            <div class="continue-btn">
+              <a href="{% url 'onboard_complete' %}" class="btn m-b-20 btn-primary">Continue</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    // Get all elements with the class
+    const wiydst_opt = document.querySelectorAll(".wiydst-opt");
+    // Loop through each element and add an event listener to it
+    wiydst_opt.forEach((element) => {
+      element.addEventListener("click", function () {
+        // Add the class of the clicked element
+        this.classList.add("active-option");
+        // Loop through all elements and remove class from non-clicked elements
+        wiydst_opt.forEach((nonClickedElement) => {
+          if (nonClickedElement !== this) {
+            nonClickedElement.classList.remove("active-option");
+          }
+        });
+      });
+    });
+  </script>
+</html>
