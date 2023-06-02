@@ -134,6 +134,8 @@ def register_password(request):
         user = User.objects.latest('id')
         user.password = password
         user.save()
+
+        auth.login(request, user, backend='mainYmay.backends.UserBackend')
         # Перенаправляем на следующую страницу после успешной обработки пароля
         return redirect('register_success')
 
@@ -275,7 +277,7 @@ def create_new_password(request):
                     user.save()
 
                     # Входим в систему
-                    login(request, user)
+                    auth.login(request, user, backend='mainYmay.backends.UserBackend')
 
                     # Очищаем кэш от кода сброса пароля и адреса электронной почты
                     cache.delete('password_reset_code')
