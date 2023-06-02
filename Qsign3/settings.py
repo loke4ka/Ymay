@@ -1,4 +1,3 @@
-
 """
 Django settings for Qsign3 project.
 
@@ -18,9 +17,6 @@ from django.template.context_processors import media
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -31,7 +27,7 @@ SECRET_KEY = 'django-insecure-b_y*_9c5(x$#ggnhwzh9od7f)*m=kyt)d-)k=4qofkk5%o@_&8
 DEBUG = True
 
 ALLOWED_HOSTS = ['*', '34.84.226.128']
-
+# source ../myenv/bin/activate - Активация виртаульной среды на SSH Консоли
 
 # Application definition
 
@@ -77,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Qsign3.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -87,7 +82,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -107,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -118,7 +111,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -144,4 +136,12 @@ CACHES = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+SESSION_SAVE_EVERY_REQUEST = True
 
+AUTHENTICATION_BACKENDS = [
+    'mainYmay.backends.UserBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+APPEND_SLASH = False
