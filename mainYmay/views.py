@@ -1,4 +1,5 @@
 import googleapiclient.discovery
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
@@ -15,6 +16,13 @@ import embed_video
 from embed_video.backends import detect_backend
 import tensorflow as tf
 from django.conf import settings
+from .models import Question, Answer
+from random import sample
+from random import shuffle
+from django.db.models import F
+from .models import Quiz, Question, Answer, UserProgress
+from django.contrib.auth import logout
+from django.shortcuts import get_object_or_404
 
 import os
 import numpy as np
@@ -145,19 +153,30 @@ def sign_in(request):
         email = request.POST['email']
         password = request.POST['password']
 
+        # Очистка данных аутентификации перед входом
+        auth.logout(request)
+
         # Аутентификация пользователя с использованием вашего бэкенда
         user = UserBackend().authenticate(request, email=email, password=password)
 
         # Проверка, что функция authenticate() вернула пользователя
         if user is not None:
             # Пользователь аутентифицирован успешно
-            auth.login(request, user)  # Выполняем вход пользователя
+            auth.login(request, user, backend='mainYmay.backends.UserBackend')
             return redirect('homepage')
         else:
             # Пользователь не аутентифицирован
             return redirect('sign_in')
 
     return render(request, 'sign_in_form.html')
+
+
+def logout_view(request):
+    if request.method == 'POST':
+        auth.logout(request)  # Очистка сессии пользователя
+        return redirect('homepage')
+    else:
+        return
 
 
 def send_email(api_key, subject, body, to):
@@ -356,8 +375,119 @@ def settings_page(request):
     return render(request, 'settings.html')
 
 
-def quiz_page(request):
-    return render(request, 'translate-this-sentence.html')
+@login_required
+def quiz_page(request, quiz_title, question_order):
+    # Получите текущего пользователя
+    user = request.user
+
+    if request.method == 'POST':
+
+        print(question_order)
+
+        # Обработка отправки ответа
+        order = question_order
+        selected_answer_id = request.POST['selected_answer_id']
+
+        # Получение данных вопроса, квиза и выбранного ответа из базы данных
+        question = Question.objects.get(order=order)
+        quiz = Quiz.objects.get(title=quiz_title)
+        selected_answer = Answer.objects.get(id=selected_answer_id)
+
+        # Проверка правильности ответа
+        is_correct = selected_answer.is_correct and selected_answer.question == question
+
+        try:
+            # Попытайтесь обновить существующую запись в UserProgress для текущего пользователя, квиза и вопроса
+            user_progress = UserProgress.objects.get(user=user, quiz=quiz, question=question)
+            user_progress.is_correct = is_correct
+            user_progress.save()
+        except UserProgress.DoesNotExist:
+            # Если записи не существует, создайте новую запись в UserProgress
+            UserProgress.objects.create(user=user, quiz=quiz, question=question, is_correct=is_correct)
+
+        # Получение следующего вопроса
+        next_question = Question.objects.filter(quiz=quiz, order__gt=question.order).order_by('order').first()
+
+        if next_question:
+            # Следующий вопрос существует, переходим к следующему вопросу и видео
+
+            next_video = next_question.video
+            answers = Answer.objects.filter(question=next_question)
+            return redirect('quiz', quiz_title=quiz.title, question_order=next_question.order)
+
+        else:
+            # Следующего вопроса нет, получаем следующее видео
+            next_video = None
+            if next_video is None:
+                # Больше видео нет, квиз завершен
+                return redirect('quiz_completed')
+
+            next_question = Question.objects.filter(quiz=quiz, order=1).first()
+            answers = Answer.objects.filter(question=next_question)
+
+        # Получение всех ответов для данного вопроса
+        answers = Answer.objects.filter(question=question)
+
+        # Установка стилей для секций Correct и Incorrect
+        correct_section_style = 'display: block;' if is_correct else 'display: none;'
+        wrong_section_style = 'display: block;' if not is_correct else 'display: none;'
+
+        # Передача данных в контекст шаблона
+        context = {
+            'question': next_question,
+            'quiz': quiz,
+            'video': next_video,
+            'answers': answers,
+            'correct_section_style': correct_section_style,
+            'wrong_section_style': wrong_section_style
+        }
+
+        return render(request, 'translate-this-sentence.html', context)
+
+    # Отображение страницы с новым вопросом и видео (при получении GET запроса)
+    quiz = Quiz.objects.get(title=quiz_title)
+
+    # Получение текущего вопроса и видео
+    question = Question.objects.get(order=question_order)
+    video = question.video
+
+    # Получите прогресс пользователя для предыдущего вопроса
+    previous_question_order = question_order - 1
+    previous_question = Question.objects.filter(quiz=quiz, order=previous_question_order).first()
+
+    user_progress = UserProgress.objects.filter(user=user, quiz=quiz, question=previous_question).first()
+
+    # Получение всех ответов для текущего вопроса
+    answers = Answer.objects.filter(question=question)
+
+    # Установка начальных стилей для секций Correct и Incorrect
+    correct_section_style = 'display: none;'
+    wrong_section_style = 'display: none;'
+
+    if user_progress:
+        # Пользователь уже ответил на предыдущий вопрос
+        if user_progress.is_correct:
+            correct_section_style = 'display: block;'
+            wrong_section_style = 'display: none;'
+        else:
+            correct_section_style = 'display: none;'
+            wrong_section_style = 'display: block;'
+
+    # Передача данных в контекст шаблона
+    context = {
+        'question': question,
+        'quiz': quiz,
+        'video': video,
+        'answers': answers,
+        'correct_section_style': correct_section_style,
+        'wrong_section_style': wrong_section_style
+    }
+
+    return render(request, 'translate-this-sentence.html', context)
+
+
+def quiz_complete(request):
+    return render(request, 'lesson-completed.html')
 
 
 def leaderboard(request):

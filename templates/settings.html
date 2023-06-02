@@ -147,14 +147,35 @@
 </body>
 <script>
     document.getElementById("logout-button").addEventListener("click", function () {
-        fetch('/logout', {
+        var csrfToken = getCookie('csrftoken');  // Получаем CSRF-токен из куки
+
+        fetch('/logout/', {
             method: 'POST',
-            credentials: 'same-origin'
+            credentials: 'same-origin',
+            headers: {
+                'X-CSRFToken': csrfToken  // Добавляем CSRF-токен в заголовок запроса
+            }
         }).then(() => {
             // Перенаправление на главную страницу после выхода из системы
             window.location.href = '/';
         });
     });
+
+    // Функция для получения значения из куки по имени
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 </script>
 
 <script>

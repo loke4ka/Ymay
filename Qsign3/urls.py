@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LogoutView, LoginView
 
 from mainYmay.views import *
 
@@ -43,6 +43,7 @@ urlpatterns = [
                   path('homepage', home_page, name='homepage'),
 
                   path('sign_in', sign_in, name='sign_in'),
+
                   path('password_reset', password_reset, name='password_reset'),
                   path('password_reset_confirm', password_reset_confirm, name='password_reset_confirm'),
                   path('create_new_password', create_new_password, name='create_new_password'),
@@ -53,9 +54,10 @@ urlpatterns = [
                   path('account_page/', account_page, name='account_page'),
                   path('settings_page/', settings_page, name='settings_page'),
 
-                  path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+                  path('logout/', logout_view, name='logout'),
 
-                  path('quiz_page/', quiz_page, name='quiz_page'),
+                  path('quiz/<str:quiz_title>/<int:question_order>/', quiz_page, name='quiz'),
+
                   path('leaderboard/', leaderboard, name='leaderboard'),
 
                   path('people_profile/', people_profile, name='people_profile'),
@@ -63,5 +65,7 @@ urlpatterns = [
                   path('subscribe_plan/', subscribe_plan, name='subscribe_plan'),
                   path('select_payment_method/', select_payment_method, name='select_payment_method'),
                   path('sub_success/', sub_success, name='sub_success'),
+
+                  path('quiz_completed', quiz_complete, name='quiz_completed'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,112 +1,218 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Review Summary</title>
-    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div class="main" >
-      <div class="container">
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+    <div class="container">
         <div class="content">
-          <section class="translate-sentence-contents">
-            <div class="select-payment-header">
-                <a href="{% url 'homepage' %}">
-              <img class="cancel" src="{% static 'Ymay/images/cancel.png' %}" alt="" srcset="" />
-                    </a>
-              <progress id="trans-sent-progress" value="15" max="100"></progress>
-              <div class="trans-diamond-value">
-                <img src="{% static 'Ymay/images/translate-sentence-icons/diamond-icon.png' %}" alt="" />
-                <p class="value">937</p>
-              </div>
-            </div>
-            <!-- Heading -->
-            <p class="heading">Which sign is shown in the video?</p>
-            <!-- video section  -->
-            <div class="video-container">
-              <video id="sel-lang-video" controls>
-                <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/d/db/Fractal-zoom-1-15-rupture.ogv/Fractal-zoom-1-15-rupture.ogv.240p.vp9.webm" />
-              </video>
-            </div>
-            <div class="translate-letters">
-              <!-- letter  -->
-              <div class="letter letter-option active-option">Sign “А”</div>
-              <!-- letter  -->
-              <div class="letter letter-option">Sign “Б”</div>
-              <!-- letter  -->
-              <div class="letter letter-option">Sign “В”</div>
-              <!-- letter  -->
-              <div class="letter letter-option">Sign “Г”</div>
-            </div>
-          </section>
-          <!-- continue button  -->
-          <section class="signup-btns">
-            <div class="continue-btn">
-              <a href="" class="btn m-b-20 btn-primary">Check Answers</a>
-            </div>
-          </section>
-          <!-- Correct section  -->
-          <!-- remove style to view the section  -->
-          <section class="correct-section" style="display: none">
-            <div class="correct-section-inner">
-              <div class="correct-left-content">
-                <input type="checkbox" class="correct-checkbox" name="correct" id="correct" />
-                <p class="title">Correct</p>
-              </div>
-              <div class="correct-right-content">
-                <img class="send-icon icon" src="{% static 'Ymay/images/translate-sentence-icons/correct/send-icon.png' %}" alt="" srcset="" />
-                <img class="chat-icon icon" src="{% static 'Ymay/images/translate-sentence-icons/correct/chat-icon.png' %}" alt="" srcset="" />
-                <img class="info-icon icon" src="{% static 'Ymay/images/translate-sentence-icons/correct/info-icon.png' %}" alt="" />
-              </div>
-            </div>
-            <div class="correct-sec-btn">
-              <a class="btn" href="http://">CONTINUE</a>
-            </div>
-          </section>
-          <!-- Wrong section  -->
-          <!-- remove style to view the section  -->
-          <section class="wrong-section" style="display: none">
-            <div class="wrong-section-inner">
-              <div class="wrong-left-content">
-                <input type="checkbox" class="wrong-checkbox" name="wrong" id="wrong" />
-                <p class="title">Wrong!</p>
-              </div>
-              <div class="wrong-right-content">
-                <img class="send-icon icon" src="{% static 'Ymay/images/translate-sentence-icons/correct/send-icon.png' %}" alt="" srcset="" />
-                <img class="chat-icon icon" src="{% static 'Ymay/images/translate-sentence-icons/correct/chat-icon.png' %}" alt="" srcset="" />
-                <img class="info-icon icon" src="{% static 'Ymay/images/translate-sentence-icons/correct/info-icon.png' %}" alt="" />
-              </div>
-            </div>
-            <div class="heading">Correct answer:</div>
-            <div class="sub-heading">saya berjalan dan dia berenang.</div>
-            <div class="wrong-sec-btn">
-              <a class="btn" href="http://">Ok</a>
-            </div>
-          </section>
+            {% if next_question %}
+                <form method="POST" action="{% url 'quiz' quiz.title next_question.order %}">
+
+                    {% csrf_token %}
+                    <section class="translate-sentence-contents">
+                        <div class="select-payment-header">
+                            <a href="{% url 'homepage' %}">
+                                <img class="cancel" src="{% static 'Ymay/images/cancel.png' %}" alt="" srcset=""/>
+                            </a>
+                            <progress id="trans-sent-progress" value="15" max="100"></progress>
+                            <div class="trans-diamond-value">
+                                <img src="{% static 'Ymay/images/translate-sentence-icons/diamond-icon.png' %}" alt=""/>
+                                <p class="value">937</p>
+                            </div>
+                        </div>
+                        <!-- Heading -->
+                        <p class="heading">{{ question.text }}</p>
+                        <!-- video section -->
+                        {% load embed_video_tags %}
+                        <div class="video-container">
+                            {% video video.embed as my_video %}
+                                {% if my_video %}
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        {% video my_video %}
+                                    </div>
+                                {% endif %}
+                            {% endvideo %}
+                        </div>
+                        <div class="translate-letters">
+                            {% for answer in answers %}
+                                <div class="letter letter-option" data-answer-id="{{ answer.id }}">
+                                    <input type="hidden" class="answer-field" name="selected_answer_id"
+                                           value="{{ answer.id }}">
+                                    <div class="answer-text">{{ answer.text }}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+
+                    <!-- continue button  -->
+                    <section class="signup-btns">
+                        <div class="continue-btn">
+
+                            <input type="hidden" name="order" value="{{ next_question.order }}">
+                            <input type="hidden" name="question_id" value="{{ question.id }}">
+                            <input type="hidden" name="video_id" value="{{ video.id }}">
+                            <input type="hidden" name="video_title" value="{{ video.title }}">
+                            <button type="submit" class="btn m-b-20 btn-primary">Check Answers</button>
+
+                        </div>
+                    </section>
+                </form>
+            {% endif %}
+            <form method="POST" action="{% url 'quiz' quiz.title question.order %}">
+
+                {% csrf_token %}
+                <section class="translate-sentence-contents">
+                    <div class="select-payment-header">
+                        <a href="{% url 'homepage' %}">
+                            <img class="cancel" src="{% static 'Ymay/images/cancel.png' %}" alt="" srcset=""/>
+                        </a>
+                        <progress id="trans-sent-progress" value="15" max="100"></progress>
+                        <div class="trans-diamond-value">
+                            <img src="{% static 'Ymay/images/translate-sentence-icons/diamond-icon.png' %}" alt=""/>
+                            <p class="value">937</p>
+                        </div>
+                    </div>
+                    <!-- Heading -->
+                    <p class="heading">{{ question.text }}</p>
+                    <!-- video section -->
+                    {% load embed_video_tags %}
+                    <div class="video-container">
+                        {% video video.embed as my_video %}
+                            {% if my_video %}
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    {% video my_video %}
+                                </div>
+                            {% endif %}
+                        {% endvideo %}
+                    </div>
+                    <div class="translate-letters">
+                        {% for answer in answers %}
+                            <div class="letter letter-option" data-answer-id="{{ answer.id }}">
+                                <input type="hidden" class="answer-field" name="selected_answer_id"
+                                       value="{{ answer.id }}">
+                                <div class="answer-text">{{ answer.text }}</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <!-- continue button  -->
+                <section class="signup-btns">
+                    <div class="continue-btn">
+
+                        <input type="hidden" name="order" value="{{ next_question.order }}">
+                        <input type="hidden" name="question_id" value="{{ question.id }}">
+                        <input type="hidden" name="video_id" value="{{ video.id }}">
+                        <input type="hidden" name="video_title" value="{{ video.title }}">
+                        <button type="submit" class="btn m-b-20 btn-primary">Check Answers</button>
+
+                    </div>
+                </section>
+            </form>
+            <!-- Correct section  -->
+            <!-- remove style to view the section  -->
+            <section id="correct-section" class="correct-section" style="{{ correct_section_style }}">
+                <div class="correct-section-inner">
+                    <div class="correct-left-content">
+                        <input type="checkbox" class="correct-checkbox" name="correct" id="correct"/>
+                        <p class="title">Correct</p>
+                    </div>
+                    <div class="correct-right-content">
+                        <img class="send-icon icon"
+                             src="{% static 'Ymay/images/translate-sentence-icons/correct/send-icon.png' %}" alt=""
+                             srcset=""/>
+                        <img class="chat-icon icon"
+                             src="{% static 'Ymay/images/translate-sentence-icons/correct/chat-icon.png' %}" alt=""
+                             srcset=""/>
+                        <img class="info-icon icon"
+                             src="{% static 'Ymay/images/translate-sentence-icons/correct/info-icon.png' %}" alt=""/>
+                    </div>
+                </div>
+                <div class="correct-sec-btn">
+                    <button class="btn" onclick="hideCorrectSectionCorrect()">CONTINUE</button>
+                </div>
+            </section>
+            <!-- Wrong section  -->
+            <!-- remove style to view the section  -->
+            <section id="wrong-section" class="wrong-section" style="{{ wrong_section_style }}">
+                <div class="wrong-section-inner">
+                    <div class="wrong-left-content">
+                        <input type="checkbox" class="wrong-checkbox" name="wrong" id="wrong"/>
+                        <p class="title">Wrong!</p>
+                    </div>
+                    <div class="wrong-right-content">
+                        <img class="send-icon icon"
+                             src="{% static 'Ymay/images/translate-sentence-icons/correct/send-icon.png' %}" alt=""
+                             srcset=""/>
+                        <img class="chat-icon icon"
+                             src="{% static 'Ymay/images/translate-sentence-icons/correct/chat-icon.png' %}" alt=""
+                             srcset=""/>
+                        <img class="info-icon icon"
+                             src="{% static 'Ymay/images/translate-sentence-icons/correct/info-icon.png' %}"
+                             alt=""/>
+                    </div>
+                </div>
+                <div class="heading">Correct answer:</div>
+                <div class="sub-heading">saya berjalan dan dia berenang.</div>
+                <div class="wrong-sec-btn">
+                    <button class="btn" onclick="hideCorrectSectionWrong()">CONTINUE</button>
+                </div>
+            </section>
+
         </div>
-      </div>
     </div>
-  </body>
-  <script>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function hideCorrectSectionCorrect() {
+        var correctSection = document.getElementById("correct-section");
+        correctSection.style.display = "none";
+    }
+
+    function hideCorrectSectionWrong() {
+        var correctSection = document.getElementById("wrong-section");
+        correctSection.style.display = "none";
+    }
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('.letter-option').click(function () {
+            $(this).addClass('selected');
+            $(this).siblings().removeClass('selected');
+            var answerId = $(this).data('answer-id');
+            $('.answer-field').val(answerId);
+        });
+    });
+
+
+</script>
+<script>
     // Get all elements with the class "my-class"
     const elements = document.querySelectorAll(".letter-option");
     // Loop through each element and add an event listener to it
     elements.forEach((element) => {
-      element.addEventListener("click", function () {
-        // Change the background color of the clicked element
-        this.classList.add("active-option");
-        elements.forEach((nonClickedElement) => {
-          if (nonClickedElement !== this) {
-            nonClickedElement.classList.remove("active-option");
-          }
+        element.addEventListener("click", function () {
+            // Change the background color of the clicked element
+            this.classList.add("active-option");
+            elements.forEach((nonClickedElement) => {
+                if (nonClickedElement !== this) {
+                    nonClickedElement.classList.remove("active-option");
+                }
+            });
         });
-      });
     });
-  </script>
+</script>
 </html>

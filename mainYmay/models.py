@@ -1,5 +1,6 @@
 from django.db import models
 from embed_video.fields import EmbedVideoField
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 from django.db import models
 
@@ -13,6 +14,8 @@ class User(models.Model):
     is_active = models.BooleanField(default=True)
 
     # Методы
+    def is_authenticated(self):
+        return True
 
     def __str__(self):
         return self.name
@@ -26,6 +29,7 @@ class Video(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     video_id = models.CharField(max_length=50)
     embed = EmbedVideoField()
+    order = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -37,3 +41,40 @@ class Survey(models.Model):
     level_of_interest = models.IntegerField()
     reason_for_learning = models.TextField()
     time_to_dedicate = models.CharField(max_length=100)
+
+
+class Quiz(models.Model):
+    title = models.CharField(max_length=100)
+    videos = models.ManyToManyField(Video)
+
+    def __str__(self):
+        return self.title
+
+
+class Question(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    text = models.CharField(max_length=200)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE)
+    order = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.text
+
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    text = models.CharField(max_length=100)
+    is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.text
+
+
+class UserProgress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    is_correct = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('user', 'quiz', 'question')
