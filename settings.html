@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Settings</title>
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="leaderboardv2-body">
+<div class="main">
+    <div class="container">
+        <div class="content">
+            <section class="settings-contents">
+                <div class="select-payment-header">
+                    <img class="back" src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset=""/>
+                    <p class="page-title">Settings</p>
+                </div>
+                <!-- setting options -->
+                <div class="settings-options">
+                    <!-- option  -->
+                    <a href="">
+                        <div class="personal-info s-option">
+                            <div class="right">
+                                <img src="{% static 'Ymay/images/settings-icons/personal-info.png' %}" alt=""/>
+                                <p class="title">Personal Info</p>
+                            </div>
+                            <img src="{% static 'Ymay/images/settings-icons/arrow-right.png' %}" alt=""/>
+                        </div>
+                    </a>
+                    <!-- option  -->
+                    <a href="">
+                        <div class="personal-info s-option">
+                            <div class="right">
+                                <img src="{% static 'Ymay/images/settings-icons/notification.png' %}" alt=""/>
+                                <p class="title">Notification</p>
+                            </div>
+                            <img src="{% static 'Ymay/images/settings-icons/arrow-right.png' %}" alt=""/>
+                        </div>
+                    </a>
+                    <!-- option  -->
+                    <a href="">
+                        <div class="personal-info s-option">
+                            <div class="right">
+                                <img src="{% static 'Ymay/images/settings-icons/general.png' %}" alt=""/>
+                                <p class="title">General</p>
+                            </div>
+                            <img src="{% static 'Ymay/images/settings-icons/arrow-right.png' %}" alt=""/>
+                        </div>
+                    </a>
+                    <!-- option  -->
+                    <a href="">
+                        <div class="personal-info s-option">
+                            <div class="right">
+                                <img src="{% static 'Ymay/images/settings-icons/accessibility.png' %}" alt=""/>
+                                <p class="title">Accessibility</p>
+                            </div>
+                            <img src="{% static 'Ymay/images/settings-icons/arrow-right.png' %}" alt=""/>
+                        </div>
+                    </a>
+                    <!-- option  -->
+                    <a href="">
+                        <div class="personal-info s-option">
+                            <div class="right">
+                                <img src="{% static 'Ymay/images/settings-icons/security.png' %}" alt=""/>
+                                <p class="title">Security</p>
+                            </div>
+                            <img src="{% static 'Ymay/images/settings-icons/arrow-right.png' %}" alt=""/>
+                        </div>
+                    </a>
+                    <!-- option  -->
+                    <a href="">
+                        <div class="personal-info s-option">
+                            <div class="right">
+                                <img src="{% static 'Ymay/images/settings-icons/find-friends.png' %}" alt=""/>
+                                <p class="title">Find Friends</p>
+                            </div>
+                            <img src="{% static 'Ymay/images/settings-icons/arrow-right.png' %}" alt=""/>
+                        </div>
+                    </a>
+                    <!-- option  -->
+                    <a href="">
+                        <div class="personal-info s-option">
+                            <div class="right">
+                                <img src="{% static 'Ymay/images/settings-icons/dark-mode.png' %}" alt=""/>
+                                <p class="title">Dark Mode</p>
+                            </div>
+                            <label class="setting-switch">
+                                <input type="checkbox"/>
+                                <span class="setting-slider round"></span>
+                            </label>
+                        </div>
+                    </a>
+                    <!-- option  -->
+                    <a href="">
+                        <div class="personal-info s-option">
+                            <div class="right">
+                                <img src="{% static 'Ymay/images/settings-icons/help-center.png' %}" alt=""/>
+                                <p class="title">Help Center</p>
+                            </div>
+                            <img src="{% static 'Ymay/images/settings-icons/arrow-right.png' %}" alt=""/>
+                        </div>
+                    </a>
+                    <!-- option  -->
+                    <a href="">
+                        <div class="personal-info s-option">
+                            <div class="right">
+                                <img src="{% static 'Ymay/images/settings-icons/about-ymay.png' %}" alt=""/>
+                                <p class="title">About Ymay</p>
+                            </div>
+                            <img src="{% static 'Ymay/images/settings-icons/arrow-right.png' %}" alt=""/>
+                        </div>
+                    </a>
+                    <!-- option  -->
+                    <div class="personal-info s-option logout" id="logout">
+                        <div class="right">
+                            <img src="{% static 'Ymay/images/settings-icons/logout.png' %}" alt=""/>
+                            <p class="title">Logout</p>
+                        </div>
+                        <img src="{% static 'Ymay/images/settings-icons/arrow-right.png' %}" alt=""/>
+                    </div>
+                </div>
+                <div class="log-model">
+                    <div class="log-model-inner"></div>
+                    <div class="log-model-contents">
+                        <p class="title logout">Logout</p>
+                        <hr class="line"/>
+                        <p class="alert">Are you sure you want to log out?</p>
+                        <div class="logout-btns">
+                            <div class="cancel-btn l-btn" id="cancel-btn">Cancel</div>
+
+                            <div class="yes-logout l-btn" id="logout-button">Yes, Logout</div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    document.getElementById("logout-button").addEventListener("click", function () {
+        var csrfToken = getCookie('csrftoken');  // Получаем CSRF-токен из куки
+
+        fetch('/logout/', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'X-CSRFToken': csrfToken  // Добавляем CSRF-токен в заголовок запроса
+            }
+        }).then(() => {
+            // Перенаправление на главную страницу после выхода из системы
+            window.location.href = '/';
+        });
+    });
+
+    // Функция для получения значения из куки по имени
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+
+<script>
+    var logout_btn = document.getElementById("logout");
+    var log_model = document.getElementsByClassName("log-model")[0];
+    var cancel_btn = document.getElementById("cancel-btn");
+    logout_btn.addEventListener("click", function () {
+        log_model.style.display = "block";
+    });
+    cancel_btn.addEventListener("click", function () {
+        log_model.style.display = "none";
+    });
+</script>
+</html>
