@@ -11,6 +11,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
           rel="stylesheet"/>
+
+    <style>
+
+        .video-container {
+            margin-top: 20px;
+        }
+
+        .embed-responsive-16by9 iframe {
+            width: 390px;
+            height: 292px;
+
+            border-radius: 39px;
+            overflow: hidden;
+        }
+
+    </style>
 </head>
 <body>
 <div class="main">
@@ -35,15 +51,19 @@
                         <p class="heading">{{ question.text }}</p>
                         <!-- video section -->
                         {% load embed_video_tags %}
-                        <div class="video-container">
-                            {% video video.embed as my_video %}
-                                {% if my_video %}
+
+                        {% video video.url as my_video %}
+                            {% if my_video %}
+                                <div class="video-container">
                                     <div class="embed-responsive embed-responsive-16by9">
-                                        {% video my_video %}
+
+                                        {% video my_video backend='embed_video.backends.YoutubeBackend' %}
                                     </div>
-                                {% endif %}
-                            {% endvideo %}
-                        </div>
+                                </div>
+
+                            {% endif %}
+                        {% endvideo %}
+
                         <div class="translate-letters">
                             {% for answer in answers %}
                                 <div class="letter letter-option" data-answer-id="{{ answer.id }}">
@@ -101,7 +121,7 @@
                             <div class="letter letter-option" data-answer-id="{{ answer.id }}">
                                 <input type="hidden" class="answer-field" name="selected_answer_id"
                                        value="{{ answer.id }}">
-                                <div class="answer-text">{{ answer.text }}</div>
+                                <div class="answer-text">Sign: "{{ answer.text }}"</div>
                             </div>
                         {% endfor %}
                     </div>
@@ -125,7 +145,7 @@
             <section id="correct-section" class="correct-section" style="{{ correct_section_style }}">
                 <div class="correct-section-inner">
                     <div class="correct-left-content">
-                        <input type="checkbox" class="correct-checkbox" name="correct" id="correct"/>
+
                         <p class="title">Correct</p>
                     </div>
                     <div class="correct-right-content">
@@ -148,7 +168,7 @@
             <section id="wrong-section" class="wrong-section" style="{{ wrong_section_style }}">
                 <div class="wrong-section-inner">
                     <div class="wrong-left-content">
-                        <input type="checkbox" class="wrong-checkbox" name="wrong" id="wrong"/>
+
                         <p class="title">Wrong!</p>
                     </div>
                     <div class="wrong-right-content">
@@ -163,8 +183,8 @@
                              alt=""/>
                     </div>
                 </div>
-                <div class="heading">Correct answer:</div>
-                <div class="sub-heading">saya berjalan dan dia berenang.</div>
+                <div class="heading">Correct answer was:</div>
+                <div class="sub-heading">Sign: "{{ correct_answer }}"</div>
                 <div class="wrong-sec-btn">
                     <button class="btn" onclick="hideCorrectSectionWrong()">CONTINUE</button>
                 </div>

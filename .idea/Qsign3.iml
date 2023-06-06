@@ -25,6 +25,7 @@
     <orderEntry type="library" name="handtrackjs" level="application" />
     <orderEntry type="library" name="@tensorflow" level="application" />
     <orderEntry type="library" name="@tensorflow-models" level="application" />
+    <orderEntry type="library" name="adapter-latest" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

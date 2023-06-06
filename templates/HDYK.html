@@ -1,100 +1,119 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>How did you Know</title>
-    <link rel="stylesheet" href={% static 'Ymay/style.css' %} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div class="main">
-      <div class="container">
+    <link rel="stylesheet" href={% static 'Ymay/style.css' %}/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+</head>
+<body>
+<div class="main">
+    <div class="container">
         <div class="content">
-          <section class="content-section">
-            <div class="sel-hdyk-contents">
-              <div class="back-arrow">
-                <img src={% static 'Ymay/images/back-arrow.png' %} alt="" srcset="" />
-              </div>
-              <div class="expression-img-msg">
-                <div class="expression-img">
-                  <img src={% static 'Ymay/images/hdyk-icons/hdyk-expression.png' %} alt="" srcset="" />
-                </div>
-                <div class="expression-msg">
-                  <img src={% static 'Ymay/images/hdyk-icons/hdyk-msg-bg.png' %} alt="" srcset="" />
-                  <p>How did you know about Ymay?</p>
-                </div>
-              </div>
-              <!-- hdykuage-options  -->
-              <div class="hdykuage-options">
-                <!-- option  -->
-                <div class="hdyk-opt option active-option">
-                  <div class="hdyk-opt-img option-img">
-                    <img class="sel-opt-flag" src={% static 'Ymay/images/hdyk-icons/google.png' %} alt="" srcset="" />
-                  </div>
-                  <div class="hdyk-opt-name option-name">
-                    <p class="sel-opt-nam">Google Search</p>
-                  </div>
-                </div>
-                <!-- option  -->
-                <div class="hdyk-opt option">
-                  <div class="hdyk-opt-img option-img">
-                    <img class="sel-opt-flag" src={% static 'Ymay/images/hdyk-icons/facebook.png' %} alt="" srcset="" />
-                  </div>
-                  <div class="hdyk-opt-name option-name">
-                    <p class="sel-opt-nam">Facebook</p>
-                  </div>
-                </div>
-                <!-- option  -->
-                <div class="hdyk-opt option">
-                  <div class="hdyk-opt-img option-img">
-                    <img class="sel-opt-flag" src={% static 'Ymay/images/hdyk-icons/tiktok.png' %} alt="" srcset="" />
-                  </div>
-                  <div class="hdyk-opt-name option-name">
-                    <p class="sel-opt-nam">Tiktok</p>
-                  </div>
-                </div>
-                <!-- option  -->
-                <div class="hdyk-opt option">
-                  <div class="hdyk-opt-img option-img">
-                    <img class="sel-opt-flag" src={% static 'Ymay/images/hdyk-icons/app-store.png' %} alt="" srcset="" />
-                  </div>
-                  <div class="hdyk-opt-name option-name">
-                    <p class="sel-opt-nam">App Store</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          <!-- continue button  -->
-          <section class="signup-btns">
-            <div class="continue-btn">
-              <a href="{% url 'hmedy' %}" class="btn m-b-20 btn-primary">Continue</a>
-            </div>
-          </section>
+            <form action="{% url 'hdyk' %}" method="post">
+                {% csrf_token %}
+                <section class="content-section">
+                    <div class="sel-hdyk-contents">
+                        <div class="back-arrow"><a href="{% url 'select_language' %}">
+                            <img src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset=""/></a>
+                        </div>
+                        <div class="expression-img-msg">
+                            <div class="expression-img">
+                                <img src="{% static 'Ymay/images/hdyk-icons/hdyk-expression.png' %}" alt="" srcset=""/>
+                            </div>
+                            <div class="expression-msg">
+                                <img src="{% static 'Ymay/images/hdyk-icons/hdyk-msg-bg.png' %}" alt="" srcset=""/>
+                                <p>How did you know about Ymay?</p>
+                            </div>
+                        </div>
+                        <!-- hdyk-options  -->
+                        <div class="hdyk-options">
+                            <!-- option  -->
+                            <div class="hdyk-opt option active-option">
+                                <div class="hdyk-opt-img option-img">
+                                    <img class="sel-opt-flag" src="{% static 'Ymay/images/hdyk-icons/google.png' %}"
+                                         alt="" srcset=""/>
+                                </div>
+                                <div class="hdyk-opt-name option-name">
+                                    <p class="sel-opt-nam">Google Search</p>
+                                </div>
+                            </div>
+                            <!-- option  -->
+                            <div class="hdyk-opt option">
+                                <div class="hdyk-opt-img option-img">
+                                    <img class="sel-opt-flag" src="{% static 'Ymay/images/hdyk-icons/facebook.png' %}"
+                                         alt="" srcset=""/>
+                                </div>
+                                <div class="hdyk-opt-name option-name">
+                                    <p class="sel-opt-nam">Facebook</p>
+                                </div>
+                            </div>
+                            <!-- option  -->
+                            <div class="hdyk-opt option">
+                                <div class="hdyk-opt-img option-img">
+                                    <img class="sel-opt-flag" src="{% static 'Ymay/images/hdyk-icons/tiktok.png' %}"
+                                         alt="" srcset=""/>
+                                </div>
+                                <div class="hdyk-opt-name option-name">
+                                    <p class="sel-opt-nam">Tiktok</p>
+                                </div>
+                            </div>
+                            <!-- option  -->
+                            <div class="hdyk-opt option">
+                                <div class="hdyk-opt-img option-img">
+                                    <img class="sel-opt-flag" src="{% static 'Ymay/images/hdyk-icons/app-store.png' %}"
+                                         alt="" srcset=""/>
+                                </div>
+                                <div class="hdyk-opt-name option-name">
+                                    <p class="sel-opt-nam">App Store</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- continue button  -->
+                <section class="signup-btns">
+                    <div class="continue-btn">
+                        <button type="submit" class="btn m-b-20 btn-primary">Continue</button>
+                    </div>
+                </section>
+                <!-- Hidden input field for selected option -->
+                <input type="hidden" id="selected_option" name="selected_option" value="">
+            </form>
         </div>
-      </div>
     </div>
-  </body>
-  <script>
-    // Get all elements with the class "my-class"
-    const elements = document.querySelectorAll(".hdyk-opt");
+</div>
+</body>
+<script>
+
+    // Get all elements with the class "hdyk-opt"
+    const options = document.querySelectorAll(".hdyk-opt");
+
     // Loop through each element and add an event listener to it
-    elements.forEach((element) => {
-      element.addEventListener("click", function () {
-        // Change the background color of the clicked element
-        this.classList.add("active-option");
-        // Loop through all elements and reset the background color of non-clicked elements
-        elements.forEach((nonClickedElement) => {
-          if (nonClickedElement !== this) {
-            nonClickedElement.classList.remove("active-option");
-          }
+    options.forEach((option) => {
+        option.addEventListener("click", function () {
+            // Remove the "active-option" class from all options
+            options.forEach((nonClickedOption) => {
+                nonClickedOption.classList.remove("active-option");
+            });
+
+            // Add the "active-option" class to the clicked option
+            this.classList.add("active-option");
+
+            // Get the selected option value
+            const selectedOption = this.getElementsByClassName("sel-opt-nam")[0].innerText;
+
+            // Set the selected option value to the hidden input field
+            const hiddenInput = document.getElementById("selected_option");
+            hiddenInput.value = selectedOption;
         });
-      });
     });
-  </script>
+
+</script>
 </html>

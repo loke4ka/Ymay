@@ -18,13 +18,14 @@ from django.core.cache import cache
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import tensorflow as tf
+from django.views.decorators.csrf import csrf_protect
 from keras.models import load_model
 from PIL import Image, ImageOps
 from .hand_detection import detect_hands
 import mediapipe as mp
 
 from .backends import UserBackend
-from .models import Quiz, Question, Answer, UserProgress
+from .models import Quiz, Question, Answer, UserProgress, Survey
 from .models import User
 from .models import Video
 
@@ -41,27 +42,81 @@ def welcome(request):
 
 
 def select_lang(request):
+    selected_language = 'English'
+    if request.method == "POST":
+        selected_language = request.POST.get("selected_language")
+
+        # Сохраните выбранный язык в сессии
+        request.session["selected_language"] = selected_language
+
+        return redirect("hdyk")  # Перенаправьте пользователя на следующий вопрос
     return render(request, 'select_language.html', context={})
 
 
 def hdyk(request):
+    how_did_you_find_us = ''
+    if request.method == "POST":
+        how_did_you_find_us = request.POST.get("selected_option")
+        # Сохраните ответ на вопрос в сессии
+        request.session["how_did_you_find_us"] = how_did_you_find_us
+        return redirect("hmedy")  # Перенаправьте пользователя на следующий вопрос
     return render(request, 'HDYK.html')
 
 
 def hmedy(request):
-    return render(request, 'HMEDY.html')
+    if request.method == "POST":
+        level_of_interest = request.POST.get("selected_option")
+        if level_of_interest is None:
+            level_of_interest = 0
+        # Сохраните ответ на вопрос в сессии
+        request.session["level_of_interest"] = level_of_interest
+        return redirect("wryse")  # Перенаправьте пользователя на следующий вопрос
+    return render(request, 'hmedy.html')
 
 
 def wryse(request):
+    if request.method == "POST":
+        reason_for_learning = request.POST.get("reason_for_learning")
+        if reason_for_learning is None:
+            reason_for_learning = ' '
+        # Сохраните ответ на вопрос в сессии
+        request.session["reason_for_learning"] = reason_for_learning
+        return redirect("tiwyca")  # Перенаправьте пользователя на следующий вопрос
     return render(request, 'WRYSE.html')
+
+
+def wiydst(request):
+    time_to_dedicate = ''
+    if request.method == "POST":
+        time_to_dedicate = request.POST.get("selected_option")
+        print(time_to_dedicate)  # Проверка вывода значения в консоль
+
+        # Сохраните ответ на вопрос в сессии
+        request.session["time_to_dedicate"] = time_to_dedicate
+
+        # Создайте объект Survey и сохраните все данные опроса
+        survey = Survey(
+            native_language=request.session.get("selected_language"),
+            how_did_you_find_us=request.session.get("how_did_you_find_us"),
+            level_of_interest=request.session.get("level_of_interest"),
+            reason_for_learning=request.session.get("reason_for_learning"),
+            time_to_dedicate=request.session.get("time_to_dedicate"),
+        )
+        survey.save()
+
+        # Очистите сессию после сохранения данных опроса
+        del request.session["selected_language"]
+        del request.session["how_did_you_find_us"]
+        del request.session["level_of_interest"]
+        del request.session["reason_for_learning"]
+        del request.session["time_to_dedicate"]
+
+        return redirect("onboard_complete")  # Перенаправьте пользователя на страницу завершения опроса
+    return render(request, 'WIYDST.html')
 
 
 def tiwyca(request):
     return render(request, 'TIWYCA.html')
-
-
-def wiydst(request):
-    return render(request, 'WIYDST.html')
 
 
 def onboard_complete(request):
@@ -139,6 +194,7 @@ def register_success(request):
 
 
 def home_page(request):
+
     return render(request, 'homepage.html')
 
 
@@ -308,7 +364,7 @@ def get_video(request):
 
 
 def home_language(request):
-    letter = 'A'
+    letter = 'А'
 
     if request.method == 'POST':
         letter = request.POST.get('letter')
@@ -320,7 +376,7 @@ def home_language(request):
 
 
 # Загрузка модели
-model = load_model("AI/Model/gen2/keras_Model.h5", compile=False)
+model = load_model("AI/Model/gen2/keras_model.h5", compile=False)
 
 with open("AI/Model/gen2/labels.txt", "r", encoding="utf-8") as file:
     class_names = [line.strip() for line in file.readlines()]
@@ -494,7 +550,10 @@ def detect_hand_contours(request):
 
 
 def account_page(request):
-    return render(request, 'account-fullpage.html')
+    # Получите имя пользователя из объекта request.user
+    name = request.user.name if request.user.is_authenticated else None
+
+    return render(request, 'account-fullpage.html', {'name': name})
 
 
 def settings_page(request):
@@ -589,18 +648,21 @@ def quiz_page(request, quiz_title, question_order):
     # Установка начальных стилей для секций Correct и Incorrect
     correct_section_style = 'display: none;'
     wrong_section_style = 'display: none;'
-
+    correct_answer = ''
     if user_progress:
         # Пользователь уже ответил на предыдущий вопрос
         if user_progress.is_correct:
+
             correct_section_style = 'display: block;'
             wrong_section_style = 'display: none;'
         else:
+            correct_answer = Answer.objects.filter(question=previous_question, is_correct=True).first()
             correct_section_style = 'display: none;'
             wrong_section_style = 'display: block;'
 
     # Передача данных в контекст шаблона
     context = {
+        'correct_answer': correct_answer,
         'question': question,
         'quiz': quiz,
         'video': video,

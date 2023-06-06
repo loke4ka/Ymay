@@ -47,4 +47,11 @@ class QuizAdmin(admin.ModelAdmin):
 admin.site.register(Quiz, QuizAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer)
-admin.site.register(UserProgress)
+
+
+class UserProgressAdmin(admin.ModelAdmin):
+    list_display = ('user', 'quiz', 'question', 'is_correct')
+    list_filter = ('user', 'quiz')
+
+
+admin.site.register(UserProgress, UserProgressAdmin)

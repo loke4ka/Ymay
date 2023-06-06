@@ -16,93 +16,102 @@
 <div class="main">
     <div class="container">
         <div class="content">
-            <section class="content-section">
-                <div class="sel-lang-contents">
-                    <div class="back-arrow">
-                        <img src={% static 'Ymay/images/back-arrow.png' %} alt="" srcset=""/>
-                    </div>
-                    <div class="expression-img-msg">
-                        <div class="expression-img">
-                            <img src={% static 'Ymay/images/select-lang-exp.png' %} alt="" srcset=""/>
+            <form action="{% url 'select_language' %}" method="post">
+                {% csrf_token %}
+                <section class="content-section">
+                    <div class="sel-lang-contents">
+                        <div class="back-arrow">
+                            <a href="{% url 'welcome' %}">
+                            <img src="{% static 'Ymay/images/back-arrow.png' %}" alt="" srcset=""/></a>
                         </div>
-                        <div class="expression-msg">
-                            <img src={% static 'Ymay/images/sel-lang-exp.png' %} alt="" srcset=""/>
-                            <p>What language do you want to use for Ymay?</p>
+                        <div class="expression-img-msg">
+                            <div class="expression-img">
+                                <img src="{% static 'Ymay/images/select-lang-exp.png' %}" alt="" srcset=""/>
+                            </div>
+                            <div class="expression-msg">
+                                <img src="{% static 'Ymay/images/sel-lang-exp.png' %}" alt="" srcset=""/>
+                                <p>What language do you want to use for Ymay?</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="seld-lang-heading">
-                        <p>Your Native Language</p>
-                    </div>
-                    <!-- selected option info -->
-                    <div class="selected-lang-option">
-                        <div class="lang-opt-img option-img">
-                            <img class="selected-img" src="{% static 'Ymay/images/select-lang-icons/flags/usa.png' %}"
-                                 alt="" srcset=""/>
+                        <div class="seld-lang-heading">
+                            <p>Your Native Language</p>
                         </div>
-                        <div class="lang-opt-name option-name">
-                            <p class="selected-name">English</p>
-                        </div>
-                        <div class="change-option">
-                            <p>Change</p>
-                        </div>
-                    </div>
-                    <!-- language-options  -->
-                    <div class="language-options">
-                        <div class="sel-lang-heading">
-                            <p>App Language</p>
-                        </div>
-                        <!-- option  -->
-                        <div class="lang-opt option active-option">
+                        <!-- selected option info -->
+                        <div class="selected-lang-option">
                             <div class="lang-opt-img option-img">
-                                <img class="sel-opt-flag"
-                                     src="{% static 'Ymay/images/select-lang-icons/flags/usa.png' %}" alt="" srcset=""/>
+                                <img class="selected-img"
+                                     src="{% static 'Ymay/images/select-lang-icons/flags/usa.png' %}"
+                                     alt="" srcset=""/>
                             </div>
                             <div class="lang-opt-name option-name">
-                                <p class="sel-opt-nam">English</p>
+                                <p class="selected-name">English</p>
+                            </div>
+                            <div class="change-option">
+                                <p>Change</p>
                             </div>
                         </div>
-                        <!-- option  -->
-                        <div class="lang-opt option">
-                            <div class="lang-opt-img option-img">
-                                <img class="sel-opt-flag"
-                                     src="{% static 'Ymay/images/select-lang-icons/flags/france.png' %}" alt=""
-                                     srcset=""/>
+                        <!-- language-options  -->
+                        <div class="language-options">
+                            <div class="sel-lang-heading">
+                                <p>App Language</p>
                             </div>
-                            <div class="lang-opt-name option-name">
-                                <p class="sel-opt-nam">France</p>
+                            <!-- option  -->
+                            <div class="lang-opt option active-option">
+                                <div class="lang-opt-img option-img">
+                                    <img class="sel-opt-flag"
+                                         src="{% static 'Ymay/images/select-lang-icons/flags/usa.png' %}"
+                                         alt="" srcset=""/>
+                                </div>
+                                <div class="lang-opt-name option-name">
+                                    <p class="sel-opt-nam">English</p>
+                                </div>
                             </div>
-                        </div>
-                        <!-- option  -->
-                        <div class="lang-opt option">
-                            <div class="lang-opt-img option-img">
-                                <img class="sel-opt-flag"
-                                     src="{% static 'Ymay/images/select-lang-icons/flags/kazakh.png' %}" alt=""
-                                     srcset=""/>
+                            <!-- option  -->
+                            <div class="lang-opt option">
+                                <div class="lang-opt-img option-img">
+                                    <img class="sel-opt-flag"
+                                         src="{% static 'Ymay/images/select-lang-icons/flags/france.png' %}"
+                                         alt="" srcset=""/>
+                                </div>
+                                <div class="lang-opt-name option-name">
+                                    <p class="sel-opt-nam">France</p>
+                                </div>
                             </div>
-                            <div class="lang-opt-name option-name">
-                                <p class="sel-opt-nam">Kazakh</p>
+                            <!-- option  -->
+                            <div class="lang-opt option">
+                                <div class="lang-opt-img option-img">
+                                    <img class="sel-opt-flag"
+                                         src="{% static 'Ymay/images/select-lang-icons/flags/kazakh.png' %}"
+                                         alt="" srcset=""/>
+                                </div>
+                                <div class="lang-opt-name option-name">
+                                    <p class="sel-opt-nam">Kazakh</p>
+                                </div>
                             </div>
-                        </div>
-                        <!-- option  -->
-                        <div class="lang-opt option">
-                            <div class="lang-opt-img option-img">
-                                <img class="sel-opt-flag"
-                                     src="{% static 'Ymay/images/select-lang-icons/flags/russia.png' %}" alt=""
-                                     srcset=""/>
-                            </div>
-                            <div class="lang-opt-name option-name">
-                                <p class="sel-opt-nam">Russia</p>
+                            <!-- option  -->
+                            <div class="lang-opt option">
+                                <div class="lang-opt-img option-img">
+                                    <img class="sel-opt-flag"
+                                         src="{% static 'Ymay/images/select-lang-icons/flags/russia.png' %}"
+                                         alt="" srcset=""/>
+                                </div>
+                                <div class="lang-opt-name option-name">
+                                    <p class="sel-opt-nam">Russia</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <!-- continue button  -->
-            <section class="signup-btns">
-                <div class="continue-btn">
-                    <a href="{% url 'hdyk' %}" class="btn m-b-20 btn-primary">Continue</a>
-                </div>
-            </section>
+                </section>
+                <!-- continue button  -->
+                <section class="signup-btns">
+                    <div class="continue-btn">
+                        <button type="submit" class="btn m-b-20 btn-primary">Continue</button>
+                    </div>
+                </section>
+                <!-- Добавленное скрытое поле -->
+                <input type="hidden" id="selected_language" name="selected_language" value="">
+            </form>
+
         </div>
     </div>
 </div>
@@ -118,17 +127,18 @@
     // Get selected data for change
     const selected_img = document.getElementsByClassName("selected-img")[0];
     const selected_name = document.getElementsByClassName("selected-name")[0];
+    const sel_opt_nams = document.querySelectorAll(".sel-opt-nam"); // Получаем все элементы с классом sel-opt-nam
 
     // Get all elements with the class
     const lang_opts = document.querySelectorAll(".lang-opt");
     // Loop through each element and add an event listener to it
-    lang_opts.forEach((element) => {
+    lang_opts.forEach((element, index) => {
         element.addEventListener("click", function () {
             // Add the class of the clicked element
             this.classList.add("active-option");
             // Get data of selected option
             const img_src = this.getElementsByClassName("sel-opt-flag")[0];
-            const otp_name = this.getElementsByClassName("sel-opt-nam")[0];
+            const otp_name = sel_opt_nams[index]; // Получаем выбранное имя из списка
             selected_img.setAttribute("src", img_src.getAttribute("src"));
             selected_name.innerText = otp_name.innerText;
             // Loop through all elements and remove class from non-clicked elements
@@ -138,7 +148,12 @@
                 }
             });
             language_options.classList.remove("show");
+
+            // Set the selected option value to a hidden input field
+            const hiddenInput = document.getElementById("selected_language");
+            hiddenInput.value = otp_name.innerText;
         });
     });
+
 </script>
 </html>

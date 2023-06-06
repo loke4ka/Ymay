@@ -17,6 +17,19 @@
             border-radius: 10px;
         }
 
+        .btn-check {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 18px;
+            width: 360px;
+            height: 16px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px auto 0;
+        }
+
     </style>
 </head>
 <body>
@@ -132,14 +145,14 @@
                         <p class="title">Gallery</p>
                     </div>
                     <div class="letters-content">
-                        <a class="letter letter-bg" name="А" href="javascript:submitForm('А')" data-letter="А">A</a>
+                        <a class="letter" name="А" href="javascript:submitForm('А')" data-letter="А">А</a>
                         <a class="letter" name="Ә" href="javascript:submitForm('Ә')" data-letter="Ә">Ә</a>
-                        <a class="letter" data-letter="Б" href="javascript:submitForm('Б')">Б</a>
-                        <a class="letter" name="В" href="javascript:submitForm('В')" data-letter="В">B</a>
+                        <a class="letter" name="Б" data-letter="Б" href="javascript:submitForm('Б')">Б</a>
+                        <a class="letter" name="В" href="javascript:submitForm('В')" data-letter="В">В</a>
                         <a class="letter" name="Г" href="javascript:submitForm('Г')" data-letter="Г">Г</a>
                         <a class="letter" name="Ғ" href="javascript:submitForm('Ғ')" data-letter="Ғ">Ғ</a>
                         <a class="letter" name="Д" href="javascript:submitForm('Д')" data-letter="Д">Д</a>
-                        <a class="letter" name="Е" href="javascript:submitForm('Е')" data-letter="Е">E</a>
+                        <a class="letter" name="Е" href="javascript:submitForm('Е')" data-letter="Е">Е</a>
                         <a class="letter" name="Ё" href="javascript:submitForm('Ё')" data-letter="Ё">Ё</a>
                         <a class="letter" name="Ж" href="javascript:submitForm('Ж')" data-letter="Ж">Ж</a>
                         <a class="letter" name="З" href="javascript:submitForm('З')" data-letter="З">З</a>
@@ -201,6 +214,8 @@
                                     border-radius: 39px;
                                     overflow: hidden;
                                 }
+
+
                             </style>
                         {% endif %}
                     {% endvideo %}
@@ -218,9 +233,10 @@
                         <p class="camera-pre">Your camera preview</p>
                         <div class="video-container">
                             <video autoplay="true" id="videoCapture"></video>
-                        </div>
-                        <button type="button" class="btn" onclick="checkGesture()">Check Gesture</button>
 
+                        </div>
+
+                        <button type="button" class="btn-check" onclick="checkGesture()">Check Gesture</button>
                         <p class="accuracy">Accuracy: <span id="accuracyScore"></span>%</p>
                     </div>
 
@@ -257,6 +273,7 @@
     </div>
 </div>
 </body>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {% csrf_token %}
 
@@ -359,6 +376,8 @@
     // Get all elements with the class
     const letter = document.querySelectorAll(".letter");
     const sel_letter = document.getElementsByClassName("sel-letter")[0];
+    const selectedLetter = "{{ letter }}"; // Получаем значение буквы из сервера
+
     // Loop through each element and add an event listener to it
     letter.forEach((element) => {
         element.addEventListener("click", function () {
@@ -373,7 +392,14 @@
                 }
             });
         });
+
+        // Set initial background color based on the selected letter
+        if (element.innerHTML === selectedLetter) {
+            element.classList.add("letter-bg");
+            sel_letter.innerHTML = selectedLetter;
+        }
     });
+
 </script>
 
 
