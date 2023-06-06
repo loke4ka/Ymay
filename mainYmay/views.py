@@ -194,7 +194,6 @@ def register_success(request):
 
 
 def home_page(request):
-
     return render(request, 'homepage.html')
 
 
@@ -219,6 +218,21 @@ def sign_in(request):
             return redirect('sign_in')
 
     return render(request, 'sign_in_form.html')
+
+
+def admin_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = UserBackend().authenticate_admin(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('admin:index')
+        else:
+            return redirect('admin_login')
+
+    return render(request, 'admin_login.html')
 
 
 def logout_view(request):
