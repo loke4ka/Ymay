@@ -320,7 +320,7 @@ def home_language(request):
 
 
 # Загрузка модели
-model = load_model("AI/Model/gen2/keras_Model.h5", compile=False)
+model = load_model("AI/Model/gen2/keras_model.h5", compile=False)
 
 with open("AI/Model/gen2/labels.txt", "r", encoding="utf-8") as file:
     class_names = [line.strip() for line in file.readlines()]
