@@ -1,65 +1,66 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Homepage</title>
-    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div class="main" style="background-image: none">
-      <div class="container">
+    <link rel="stylesheet" href="{% static 'Ymay/style.css' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"/>
+</head>
+<body>
+<div class="main" style="background-image: none">
+    <div class="container">
         <div class="content-sec">
-          <section class="lesson-complete-contents">
-            <div class="page-title">Lesson completed!</div>
-            <div class="expression-emoji">
-              <img src="{% static 'Ymay/images/lesson-complete-icons/expression-emoji.png' %}" alt="" />
-            </div>
-            <!-- section  -->
-            <div class="diamond-section l-sec">
-              <div class="title">Diamonds</div>
-              <div class="img-value">
-                <img src="{% static 'Ymay/images/lesson-complete-icons/diamond-icon.png' %}" alt="" />
-                <p class="value">12</p>
-              </div>
-            </div>
-            <!-- section  -->
-            <div class="xp-time-acc-section">
-              <div class="XP-section l-sec">
-                <div class="title">Total XP</div>
-                <div class="img-value">
-                  <img src="{% static 'Ymay/images/lesson-complete-icons/xp-icon.png' %}" alt="" />
-                  <p class="value">24</p>
+            <section class="lesson-complete-contents">
+                <div class="page-title">Lesson completed!</div>
+                <div class="expression-emoji">
+                    <img src="{% static 'Ymay/images/lesson-complete-icons/expression-emoji.png' %}" alt=""/>
                 </div>
-              </div>
-              <div class="time-section l-sec">
-                <div class="title">Time</div>
-                <div class="img-value">
-                  <img src="{% static 'Ymay/images/lesson-complete-icons/time-icon.png' %}" alt="" />
-                  <p class="value">1:45</p>
+                <!-- section  -->
+                <div class="diamond-section l-sec">
+                    <div class="title">Diamonds</div>
+                    <div class="img-value">
+                        <img src="{% static 'Ymay/images/lesson-complete-icons/diamond-icon.png' %}" alt=""/>
+                        <p class="value">12</p>
+                    </div>
                 </div>
-              </div>
-              <div class="accuracy-section l-sec">
-                <div class="title">Accuracy</div>
-                <div class="img-value">
-                  <img src="{% static 'Ymay/images/lesson-complete-icons/accuracy-icon.png' %}" alt="" />
-                  <p class="value">87%</p>
+                <!-- section  -->
+                <div class="xp-time-acc-section">
+                    <div class="XP-section l-sec">
+                        <div class="title">Total XP</div>
+                        <div class="img-value">
+                            <img src="{% static 'Ymay/images/lesson-complete-icons/xp-icon.png' %}" alt=""/>
+                            <p class="value">24</p>
+                        </div>
+                    </div>
+                    <div class="time-section l-sec">
+                        <div class="title">Time</div>
+                        <div class="img-value">
+                            <img src="{% static 'Ymay/images/lesson-complete-icons/time-icon.png' %}" alt=""/>
+                            <p class="value">1:45</p>
+                        </div>
+                    </div>
+                    <div class="accuracy-section l-sec">
+                        <div class="title">Accuracy</div>
+                        <div class="img-value">
+                            <img src="{% static 'Ymay/images/lesson-complete-icons/accuracy-icon.png' %}" alt=""/>
+                            <p class="value">87%</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </section>
-          <section class="signup-btns">
-            <div class="continue-btn">
-              <a href="{% url 'homepage' %}" class="btn m-b-20 btn-primary">CONTINUE</a>
-            </div>
-          </section>
+            </section>
+            <section class="signup-btns">
+                <div class="continue-btn">
+                    <a href="{% url 'homepage' %}" class="btn m-b-20 btn-primary">CONTINUE</a>
+                </div>
+            </section>
         </div>
-      </div>
     </div>
-  </body>
+</div>
+</body>
 </html>
