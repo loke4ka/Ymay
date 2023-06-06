@@ -18,6 +18,7 @@ from django.core.cache import cache
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import tensorflow as tf
+from django.views.decorators.csrf import csrf_protect
 from keras.models import load_model
 from PIL import Image, ImageOps
 from .hand_detection import detect_hands
@@ -142,6 +143,7 @@ def home_page(request):
     return render(request, 'homepage.html')
 
 
+@csrf_protect
 def sign_in(request):
     if request.method == 'POST':
         email = request.POST['email']
