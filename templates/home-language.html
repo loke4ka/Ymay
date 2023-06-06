@@ -209,15 +209,21 @@
                         <span class="btn">Learn this sign</span>
                     </div>
                     <!-- Camera section  -->
+                    <form id="letterForm">
+                        {% csrf_token %}
+                        <input type="hidden" id="selectedLetter" name="selectedLetter" value="{{ letter }}">
+                    </form>
+
                     <div class="camera-section">
                         <p class="camera-pre">Your camera preview</p>
                         <div class="video-container">
                             <video autoplay="true" id="videoCapture"></video>
-                            <canvas id="canvas"></canvas>
                         </div>
-                        <p id="accuracyPercentage" class="accuracy">Accuracy: --%</p>
-                        <button id="checkGestureButton" class="btn">Check Gesture</button>
+                        <button type="button" class="btn" onclick="checkGesture()">Check Gesture</button>
+
+                        <p class="accuracy">Accuracy: <span id="accuracyScore"></span>%</p>
                     </div>
+
 
                 </section>
             </form>
@@ -252,86 +258,69 @@
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    // Функция для отображения контуров рук
-    function trackHands() {
-        var video = document.getElementById('videoCapture');
-        var canvas = document.getElementById('canvas');
-        var context = canvas.getContext('2d');
-
-        // Загрузка модуля трекинга рук
-        var tracker = new tracking.ObjectTracker('hand');
-        tracker.setStepSize(1.7);
-        tracking.track('#videoCapture', tracker, {camera: true});
-
-        tracker.on('track', function (event) {
-            context.clearRect(0, 0, canvas.width, canvas.height);
-
-            event.data.forEach(function (rect) {
-                context.strokeStyle = '#FF0000';
-                context.strokeRect(rect.x, rect.y, rect.width, rect.height);
-            });
-        });
-    }
-
-    // Запуск отслеживания контуров рук при загрузке страницы
-    window.onload = function () {
-        trackHands();
-    };
-
-</script>
 {% csrf_token %}
+
 <script>
-    // Функция для отправки видеопотока на бэкенд и обработки ответа
-    function checkGesture() {
-        // Получение элементов страницы
-        var video = document.getElementById('videoCapture');
-        var accuracyElement = document.getElementById('accuracyPercentage');
-        var canvas = document.getElementById('canvas');
-        var context = canvas.getContext('2d');
+    var learnSign = document.querySelector(".learn-sign");
+    var cameraPreview = document.querySelector(".camera-section");
+    var video = document.querySelector("#videoCapture");
 
-        // Остановка видеопотока
-        video.pause();
+    learnSign.addEventListener("click", function () {
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({video: true})
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function (error) {
+                    console.log("Something went wrong:", error);
+                });
+        }
+        cameraPreview.classList.add("show");
+    });
 
-        // Получение кадра из видеопотока
+    function captureGesture() {
+        var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        var frameData = canvas.toDataURL('image/jpeg');
+        return canvas.toDataURL("image/png");
+    }
 
-        // Отправка данных на бэкенд
-        fetch('/home_language/', {
-            method: 'POST',
+    function checkGesture() {
+        var image = captureGesture();
+        var selectedLetter = document.getElementById("selectedLetter").value;
+
+        // console.log("Captured image:", image); // Отладочное сообщение
+
+        fetch("/predict_gesture", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken') // Получение CSRF-токена
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
             },
-            body: JSON.stringify({frame: frameData})
+            body: JSON.stringify({image: image, selectedLetter: selectedLetter})
         })
-            .then(response => response.json())
-            .then(data => {
-                // Получение процента успешности и отображение его пользователю
-                var accuracy = data.accuracy;
-                accuracyElement.textContent = 'Accuracy: ' + accuracy + '%';
-
-                // Возобновление видеопотока
-                video.play();
+            .then(function (response) {
+                return response.json();
             })
-            .catch(error => {
-                console.log('An error occurred:', error);
+            .then(function (data) {
+                var accuracyScore = parseFloat(data.accuracy).toFixed(2);
+                document.getElementById("accuracyScore").textContent = accuracyScore;
+            })
+            .catch(function (error) {
+                console.log("Error:", error);
             });
     }
 
-    // Обработчик нажатия на кнопку "Проверить жест"
-    var checkGestureButton = document.getElementById('checkGestureButton');
-    checkGestureButton.addEventListener('click', checkGesture);
 
-    // Функция для получения CSRF-токена из cookie
     function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === name + "=") {
                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                     break;
                 }
@@ -340,7 +329,9 @@
         return cookieValue;
     }
 
+
 </script>
+
 
 <script>
     // Добавлено JS-функция для отправки формы
@@ -382,25 +373,6 @@
                 }
             });
         });
-    });
-</script>
-<!-- Capture videos -->
-<script>
-    var learnSign = document.querySelector(".learn-sign");
-    var cameraPreview = document.querySelector(".camera-section");
-    var video = document.querySelector("#videoCapture");
-    learnSign.addEventListener("click", function () {
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices
-                .getUserMedia({video: true})
-                .then(function (stream) {
-                    video.srcObject = stream;
-                })
-                .catch(function (err0r) {
-                    console.log("Something went wrong!");
-                });
-        }
-        cameraPreview.classList.add("show");
     });
 </script>
 
