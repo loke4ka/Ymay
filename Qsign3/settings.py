@@ -32,6 +32,15 @@ INSTALLED_APPS = [
 
 ]
 
+EMBED_VIDEO_BACKENDS_DEFAULTS = {
+    'default': {
+        'backend': 'embed_video.backends.YoutubeBackend',
+        'params': {
+            'protocol': 'https',  # Установить протокол HTTPS
+        },
+    },
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
