@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainYmay',
     'embed_video',
+
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'Qsign3.urls'
@@ -145,3 +147,4 @@ AUTHENTICATION_BACKENDS = [
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 APPEND_SLASH = False
+DATA_UPLOAD_MAX_NUMBER_FILES = 10

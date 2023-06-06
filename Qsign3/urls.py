@@ -51,6 +51,10 @@ urlpatterns = [
 
                   # path('get_video/', get_video, name='get_video'),
                   path('home_language/', home_language, name='home_language'),
+
+                  path('predict_gesture', predict_gesture, name='predict_gesture'),
+                  # path('detect_hand_contours', detect_hand_contours, name='detect_hand_contours'),
+
                   path('account_page/', account_page, name='account_page'),
                   path('settings_page/', settings_page, name='settings_page'),
 
