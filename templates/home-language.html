@@ -199,7 +199,7 @@
                         {% if my_video %}
                             <div class="video-container">
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    {% video my_video backend='embed_video.backends.YoutubeBackend' %}
+                                    {% video my_video backend='embed_video.backends.YoutubeBackend' secure=True %}
                                 </div>
                             </div>
                             <style>
@@ -214,11 +214,10 @@
                                     border-radius: 39px;
                                     overflow: hidden;
                                 }
-
-
                             </style>
                         {% endif %}
                     {% endvideo %}
+
 
                     <div class="learn-sign">
                         <span class="btn">Learn this sign</span>
