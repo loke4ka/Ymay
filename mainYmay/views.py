@@ -1,38 +1,32 @@
-import googleapiclient.discovery
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib import messages, auth
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
-from django.core.mail import send_mail
+import base64
+import io
+import json
+import logging
+import math
+import os
 import random
+import re
+
+import cv2
+import numpy as np
 import requests
+from django.contrib import messages, auth
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.cache import cache
 from django.http import JsonResponse
-from embed_video.fields import EmbedVideoField
-import embed_video
-from embed_video.backends import detect_backend
+from django.shortcuts import render, redirect
 import tensorflow as tf
-from django.conf import settings
-from .models import Question, Answer
-from random import sample
-from random import shuffle
-from django.db.models import F
-from .models import Quiz, Question, Answer, UserProgress
-from django.contrib.auth import logout
-from django.shortcuts import get_object_or_404
-
-import os
-import numpy as np
 from keras.models import load_model
+from PIL import Image, ImageOps
+from .hand_detection import detect_hands
+import mediapipe as mp
 
 from .backends import UserBackend
+from .models import Quiz, Question, Answer, UserProgress
 from .models import User
 from .models import Video
-
-from PIL import Image
 
 
 # from keras.models import load_model
@@ -275,7 +269,7 @@ def create_new_password(request):
                     user.save()
 
                     # Входим в систему
-                    login(request, user)
+                    auth.login(request, user, backend='mainYmay.backends.UserBackend')
 
                     # Очищаем кэш от кода сброса пароля и адреса электронной почты
                     cache.delete('password_reset_code')
@@ -311,60 +305,192 @@ def get_video(request):
         # Если запрос не GET, возвращаем ошибку
         return JsonResponse({'error': 'Invalid request method'})
 """
-model_path = os.path.join(settings.BASE_DIR, "AI", "Model", "keras_model.h5")
-labels_path = os.path.join(settings.BASE_DIR, "AI", "Model", "labels.txt")
-
-# Загрузка модели и меток классов
-model = None
-class_labels = []
-
-
-def load_model_and_labels():
-    global model, class_labels
-    model = load_model(model_path)
-    with open(labels_path, 'r', encoding='utf-8') as f:
-        class_labels = f.read().splitlines()
-
-
-def preprocess_image(image):
-    # Пример предварительной обработки изображения
-    resized_image = image.resize((224, 224))
-    normalized_image = np.array(resized_image) / 255.0
-    return normalized_image
-
-
-def predict_gesture(image):
-    preprocessed_image = preprocess_image(image)
-    input_data = np.expand_dims(preprocessed_image, axis=0)
-    predictions = model.predict(input_data)
-    predicted_class_index = np.argmax(predictions)
-    predicted_class_label = class_labels[predicted_class_index]
-    confidence = predictions[0][predicted_class_index] * 100
-    return predicted_class_label, confidence
 
 
 def home_language(request):
-    letter = 'А'
+    letter = 'A'
 
     if request.method == 'POST':
         letter = request.POST.get('letter')
 
-    video = Video.objects.filter(title=letter).first()
+    video = Video.objects.filter(title='SW ' + letter).first()
     video_url = video.url if video else None
 
-    predicted_class_label, confidence = None, None
+    return render(request, 'home-language.html', {'video_url': video_url, 'letter': letter})
 
-    if 'videoCapture' in request.FILES:
-        if not model:
-            load_model_and_labels()
 
-        video_capture = request.FILES['videoCapture']
-        image = Image.open(video_capture)
-        predicted_class_label, confidence = predict_gesture(image)
+# Загрузка модели
+model = load_model("AI/Model/gen2/keras_Model.h5", compile=False)
 
-    return render(request, 'home-language.html', {'video_url': video_url, 'letter': letter,
-                                                  'predicted_class_label': predicted_class_label,
-                                                  'confidence': confidence})
+with open("AI/Model/gen2/labels.txt", "r", encoding="utf-8") as file:
+    class_names = [line.strip() for line in file.readlines()]
+
+
+def preprocess_image(image):
+    # Изменение размера и обрезка изображения
+    size = (224, 224)
+    image = image.resize(size, resample=Image.LANCZOS)
+
+    # Преобразование изображения в массив numpy
+    image_array = np.asarray(image)
+
+    # Удаление 4-го канала, если он существует
+    if image_array.shape[-1] == 4:
+        image_array = image_array[:, :, :3]
+
+    # Нормализация изображения
+    normalized_image_array = (image_array.astype(np.float32) / 127.5) - 1
+
+    return normalized_image_array
+
+
+def predict_letter(image):
+    # Предобработка изображения
+    img = preprocess_image(image)
+
+    # Предсказание буквы с использованием модели
+    prediction = model.predict(np.expand_dims(img, axis=0))
+    classes = [class_names[i].strip() for i in range(len(class_names))]
+    confidences = [prediction[0][i] for i in range(len(class_names))]
+
+    return classes, confidences
+
+
+def calculate_accuracy(predicted_classes, selected_letter, confidences):
+    selected_letter = re.sub(r'[^a-zA-Zа-яА-ЯӘәҒғҚқҢңҰұҮүҺһІіЁё]', '', selected_letter)
+
+    # Создание словаря с исключениями для сравнения букв с схожими жестами
+    exceptions = {'Ұ': 'У', 'ұ': 'у', 'Ү': 'У', 'ү': 'у', 'Ң': 'Н', 'ң': 'н', 'Ё': 'Е', 'ё': 'е',
+                  'Ъ': 'Ь', 'ъ': 'ь', 'Ө': 'О', 'ө': 'о', 'Щ': 'Ш', 'щ': 'ш', 'Қ': 'К', 'қ': 'к',
+                  'Ғ': 'Г', 'ғ': 'г', 'Й': 'И', 'й': 'и'}
+
+    # Замена выбранных букв на схожие жесты, если они есть в словаре исключений
+    if selected_letter in exceptions:
+        selected_letter = exceptions[selected_letter]
+
+    predicted_letters = [cls.split(' ')[1] for cls in predicted_classes]
+
+    predicted_confidences = [confidences[i] for i in range(len(confidences)) if predicted_letters[i] == selected_letter]
+
+    print(predicted_confidences)
+
+    if len(predicted_confidences) > 0:
+        max_confidence = max(predicted_confidences)
+        if max_confidence < 1e-6:  # Маленькое значение уверенности
+            accuracy = -math.log10(max_confidence)  # Применение логарифма
+
+        else:
+
+            accuracy = max_confidence * 100  # Приведение к процентному значению
+        return accuracy
+    else:
+        return 0.0
+
+
+def detect_hand(image):
+    # Load the hand detection model
+    mp_hands = mp.solutions.hands
+    hands = mp_hands.Hands(static_image_mode=True, max_num_hands=1)
+
+    # Convert the PIL image to a numpy array
+    image_array = np.array(image)
+
+    # Convert the image to RGB format
+    image_rgb = cv2.cvtColor(image_array, cv2.COLOR_BGR2RGB)
+
+    # Detect hands in the image
+    results = hands.process(image_rgb)
+
+    # Check if any hands are detected
+    if results.multi_hand_landmarks:
+        for hand_landmarks in results.multi_hand_landmarks:
+            # Get the landmarks for each hand
+            hand_contour = []
+            for point in hand_landmarks.landmark:
+                # Access the coordinates of each landmark point
+                x = int(point.x * image_array.shape[1])
+                y = int(point.y * image_array.shape[0])
+                hand_contour.append((x, y))
+
+            # Draw the hand contour
+            cv2.drawContours(image_array, [np.array(hand_contour)], 0, (255, 0, 0), 2)
+
+            # Detect fingertips
+            for finger_tip in hand_landmarks.landmark[
+                              mp_hands.HandLandmark.INDEX_FINGER_TIP:mp_hands.HandLandmark.PINKY_TIP + 1]:
+                x = int(finger_tip.x * image_array.shape[1])
+                y = int(finger_tip.y * image_array.shape[0])
+                cv2.circle(image_array, (x, y), 5, (255, 0, 0), -1)
+
+    # Convert the resulting image back to PIL format
+    result_image = Image.fromarray(image_array)
+
+    # result_image.save('Data/result_image.png')
+
+    return result_image
+
+
+def predict_gesture(request):
+    if request.method == "POST" and b"image" in request.body:
+        data = json.loads(request.body)
+        image_data = data["image"]
+        selected_letter = data["selectedLetter"]
+
+        # Removing the image prefix
+        image_data = re.sub('^data:image/.+;base64,', '', image_data)
+
+        try:
+            # Converting the base64-encoded image string to PIL image
+            image = Image.open(io.BytesIO(base64.b64decode(image_data)))
+        except Exception as e:
+            print("Error decoding image:", e)
+            return JsonResponse({"error": "Invalid image"})
+
+        # Detecting hand contours and fingertips on the image
+        processed_image = detect_hand(image)
+
+        # Calling the predict_letter function to recognize the selected letter on the processed image
+        predicted_class, confidences = predict_letter(processed_image)
+
+        # Calculating accuracy
+        accuracy = calculate_accuracy(predicted_class, selected_letter, confidences)
+        accuracy = round(float(accuracy * 1), 2)
+        return JsonResponse({"predictedClass": predicted_class, "accuracy": accuracy})
+    else:
+        return JsonResponse({"error": "Invalid request"})
+
+
+"""
+def detect_hand_contours(request):
+    # Получите видеопоток из запроса
+    video_data = request.FILES['video']
+
+    # Прочтите видеопоток с использованием OpenCV
+    cap = cv2.VideoCapture(video_data)
+
+    # Создайте массив для хранения данных о контурах рук
+    hand_contours = []
+
+    # Пройдитесь по каждому кадру видеопотока
+    while cap.isOpened():
+        success, frame = cap.read()
+
+        if not success:
+            break
+
+        # Вызовите функцию detect_hands для обнаружения рук на кадре
+        hands = detect_hands(frame)
+
+        # Добавьте данные о контурах рук в массив
+        hand_contours.append(hands)
+
+    # Освободите захваченные ресурсы
+    cap.release()
+
+    # Верните данные о контурах рук в формате JSON
+    return JsonResponse({'hand_contours': hand_contours})
+    
+"""
 
 
 def account_page(request):
