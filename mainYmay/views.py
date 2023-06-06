@@ -143,7 +143,6 @@ def home_page(request):
     return render(request, 'homepage.html')
 
 
-@csrf_protect
 def sign_in(request):
     if request.method == 'POST':
         email = request.POST['email']
