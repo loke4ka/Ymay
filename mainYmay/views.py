@@ -21,6 +21,9 @@ import tensorflow as tf
 from django.views.decorators.csrf import csrf_protect
 from keras.models import load_model
 from PIL import Image, ImageOps
+from django.contrib.auth import authenticate, login
+
+from .forms import AdminLoginForm
 from .hand_detection import detect_hands
 import mediapipe as mp
 
@@ -222,17 +225,20 @@ def sign_in(request):
 
 def admin_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        form = AdminLoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = authenticate(request, email=email, password=password)
+            if user is not None and user.is_admin:
+                login(request, user)
+                return redirect('admin:index')
+            else:
+                form.add_error(None, 'Invalid credentials')
+    else:
+        form = AdminLoginForm()
 
-        user = UserBackend().authenticate_admin(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('admin:index')
-        else:
-            return redirect('admin_login')
-
-    return render(request, 'admin_login.html')
+    return render(request, 'admin_login.html', {'form': form})
 
 
 def logout_view(request):

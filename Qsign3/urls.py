@@ -7,8 +7,9 @@ from django.contrib.auth.views import LogoutView, LoginView
 from mainYmay.views import *
 
 urlpatterns = [
-                  path('admin/login/', admin_login, name='admin_login'),
                   path('admin/', admin.site.urls),
+                  path('admin/login/', admin_login, name='admin_login'),
+
                   path('', welcome, name='welcome'),
                   path('select_language', select_lang, name='select_language'),
                   path('hdyk', hdyk, name='hdyk'),

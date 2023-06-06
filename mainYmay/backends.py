@@ -4,16 +4,6 @@ from django.contrib.auth.backends import ModelBackend
 
 
 class UserBackend(ModelBackend):
-
-    def authenticate_admin(self, request, username=None, password=None, **kwargs):
-        try:
-            user = User.objects.get(username=username, is_staff=True)
-        except User.DoesNotExist:
-            return None
-
-        if user.check_password(password):
-            return user
-
     def logout(self, request):
         # Очистка данных сессии
         request.session.flush()
@@ -23,11 +13,11 @@ class UserBackend(ModelBackend):
 
     def authenticate(self, request, email=None, password=None, **kwargs):
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.filter(email=email).first()
         except User.DoesNotExist:
             return None
 
-        if user.password == password:
+        if user and user.password == password:
             return user
 
     def get_user(self, user_id):

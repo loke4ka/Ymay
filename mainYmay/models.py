@@ -21,6 +21,16 @@ class User(models.Model):
         return self.name
 
 
+class AdminUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    is_staff = models.BooleanField(default=False)
+    #
+
+    def __str__(self):
+        return self.user.name
+
+
+
 # Model for Video links
 class Video(models.Model):
     title = models.CharField(max_length=255)
