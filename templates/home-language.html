@@ -193,30 +193,26 @@
                         <p class="sel-letter">{{ letter }}</p>
                     </div>
                     <!-- video section  -->
-                    {% load embed_video_tags %}
-
-                    {% video video_url as my_video %}
-                        {% if my_video %}
-                            <div class="video-container">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    {% video my_video backend='embed_video.backends.YoutubeBackend' secure=True %}
-                                </div>
+                    {% if video_url %}
+                        <div class="video-container">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe src="{{ video_url }}" frameborder="0" allowfullscreen></iframe>
                             </div>
-                            <style>
-                                .video-container {
-                                    margin-top: 20px;
-                                }
+                        </div>
+                        <style>
+                            .video-container {
+                                margin-top: 20px;
+                            }
 
-                                .embed-responsive-16by9 iframe {
-                                    width: 390px;
-                                    height: 292px;
+                            .embed-responsive-16by9 iframe {
+                                width: 390px;
+                                height: 292px;
+                                border-radius: 39px;
+                                overflow: hidden;
+                            }
+                        </style>
+                    {% endif %}
 
-                                    border-radius: 39px;
-                                    overflow: hidden;
-                                }
-                            </style>
-                        {% endif %}
-                    {% endvideo %}
 
 
                     <div class="learn-sign">
