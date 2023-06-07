@@ -199,7 +199,7 @@
                         {% if my_video %}
                             <div class="video-container">
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    {% video my_video backend='embed_video.backends.YoutubeBackend' protocol='https' %}
+                                    {% video my_video backend='embed_video.backends.YoutubeBackend' secure=True %}
                                 </div>
                             </div>
                             <style>
