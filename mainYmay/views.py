@@ -390,7 +390,7 @@ def home_language(request):
         letter = request.POST.get('letter')
 
     video = Video.objects.filter(title='SW ' + letter).first()
-    video_url = video.url if video else None
+    video_url = video.embed if video else None
 
     return render(request, 'home-language.html', {'video_url': video_url, 'letter': letter})
 
