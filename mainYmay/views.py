@@ -680,6 +680,10 @@ def quiz_page(request, quiz_title, question_order):
             correct_section_style = 'display: none;'
             wrong_section_style = 'display: block;'
 
+    video.embed = question.video.embed if question.video else None
+    if video.embed:
+        video.embed = video.embed.replace("http://", "https://")
+
     # Передача данных в контекст шаблона
     context = {
         'correct_answer': correct_answer,
