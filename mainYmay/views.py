@@ -685,7 +685,7 @@ def quiz_page(request, quiz_title, question_order):
         'correct_answer': correct_answer,
         'question': question,
         'quiz': quiz,
-        'video': video,
+        'video': video.embed,
         'answers': answers,
         'correct_section_style': correct_section_style,
         'wrong_section_style': wrong_section_style
