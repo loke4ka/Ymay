@@ -74,7 +74,7 @@ def hmedy(request):
         # Сохраните ответ на вопрос в сессии
         request.session["level_of_interest"] = level_of_interest
         return redirect("wryse")  # Перенаправьте пользователя на следующий вопрос
-    return render(request, 'hmedy.html')
+    return render(request, 'HMEDY.html')
 
 
 def wryse(request):
