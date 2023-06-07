@@ -613,17 +613,17 @@ def quiz_page(request, quiz_title, question_order):
         # Получение следующего вопроса
         next_question = Question.objects.filter(quiz=quiz, order__gt=question.order).order_by('order').first()
 
-        if next_question.video:
+        if next_question:
             # Следующий вопрос существует, переходим к следующему вопросу и видео
 
-            next_video_url = next_question.video.embed
+            next_video = next_question.video
             answers = Answer.objects.filter(question=next_question)
             return redirect('quiz', quiz_title=quiz.title, question_order=next_question.order)
 
         else:
             # Следующего вопроса нет, получаем следующее видео
-            next_video_url = None
-            if next_video_url is None:
+            next_video = None
+            if next_video is None:
                 # Больше видео нет, квиз завершен
                 return redirect('quiz_completed')
 
@@ -641,7 +641,7 @@ def quiz_page(request, quiz_title, question_order):
         context = {
             'question': next_question,
             'quiz': quiz,
-            'video_url': next_video_url,
+            'video': next_video,
             'answers': answers,
             'correct_section_style': correct_section_style,
             'wrong_section_style': wrong_section_style
@@ -654,7 +654,7 @@ def quiz_page(request, quiz_title, question_order):
 
     # Получение текущего вопроса и видео
     question = Question.objects.get(order=question_order)
-    video_url = question.video.embed
+    video = question.video
 
     # Получите прогресс пользователя для предыдущего вопроса
     previous_question_order = question_order - 1
@@ -685,7 +685,7 @@ def quiz_page(request, quiz_title, question_order):
         'correct_answer': correct_answer,
         'question': question,
         'quiz': quiz,
-        'video_url': video_url,
+        'video': video,
         'answers': answers,
         'correct_section_style': correct_section_style,
         'wrong_section_style': wrong_section_style

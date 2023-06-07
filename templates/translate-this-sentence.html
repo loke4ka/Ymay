@@ -55,9 +55,21 @@
                         {% if video_url %}
                             <div class="video-container">
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe src="{{ video_url }}" frameborder="0" allowfullscreen></iframe>
+                                    <iframe src="{{ video.embed }}" frameborder="0" allowfullscreen></iframe>
                                 </div>
                             </div>
+                            <style>
+                                .video-container {
+                                    margin-top: 20px;
+                                }
+
+                                .embed-responsive-16by9 iframe {
+                                    width: 390px;
+                                    height: 292px;
+                                    border-radius: 39px;
+                                    overflow: hidden;
+                                }
+                            </style>
                         {% endif %}
 
 
