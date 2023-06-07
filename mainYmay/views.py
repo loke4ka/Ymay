@@ -616,7 +616,7 @@ def quiz_page(request, quiz_title, question_order):
         if next_question:
             # Следующий вопрос существует, переходим к следующему вопросу и видео
 
-            next_video = next_question.video
+            next_video = next_question.video.embed
             answers = Answer.objects.filter(question=next_question)
             return redirect('quiz', quiz_title=quiz.title, question_order=next_question.order)
 
@@ -654,7 +654,7 @@ def quiz_page(request, quiz_title, question_order):
 
     # Получение текущего вопроса и видео
     question = Question.objects.get(order=question_order)
-    video = question.video
+    video = question.video.embed
 
     # Получите прогресс пользователя для предыдущего вопроса
     previous_question_order = question_order - 1

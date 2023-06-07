@@ -49,20 +49,17 @@
                         </div>
                         <!-- Heading -->
                         <p class="heading">{{ question.text }}</p>
-                        <!-- video section -->
-                        {% load embed_video_tags %}
 
-                        {% video video.url as my_video %}
-                            {% if my_video %}
-                                <div class="video-container">
-                                    <div class="embed-responsive embed-responsive-16by9">
-
-                                        {% video my_video backend='embed_video.backends.YoutubeBackend' %}
-                                    </div>
+                        <!-- video section  -->
+                        {% if video_url %}
+                            <div class="video-container">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe src="{{ video_url }}" frameborder="0" allowfullscreen></iframe>
                                 </div>
+                            </div>
 
-                            {% endif %}
-                        {% endvideo %}
+
+                        {% endif %}
 
                         <div class="translate-letters">
                             {% for answer in answers %}
