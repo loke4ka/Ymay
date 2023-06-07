@@ -51,18 +51,27 @@
                         <p class="heading">{{ question.text }}</p>
 
 
-                        <!-- video section  -->
-                        {% if video_url %}
-                            <div class="video-container">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <script>
-                                        var videoUrl = "{{ video_url }}";
-                                        videoUrl = videoUrl.replace("http://", "https://");
-                                        document.write('<iframe src="' + videoUrl + '" frameborder="0" allowfullscreen></iframe>');
-                                    </script>
-                                </div>
+                       
+                       <!-- video section  -->
+                    {% if video_url %}
+                        <div class="video-container">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe src="{{ video_url }}" frameborder="0" allowfullscreen></iframe>
                             </div>
-                        {% endif %}
+                        </div>
+                        <style>
+                            .video-container {
+                                margin-top: 20px;
+                            }
+
+                            .embed-responsive-16by9 iframe {
+                                width: 390px;
+                                height: 292px;
+                                border-radius: 39px;
+                                overflow: hidden;
+                            }
+                        </style>
+                    {% endif %}
 
 
 
@@ -108,16 +117,26 @@
                     <!-- Heading -->
                     <p class="heading">{{ question.text }}</p>
                     <!-- video section -->
-                    {% load embed_video_tags %}
-                    <div class="video-container">
-                        {% video video.embed as my_video %}
-                            {% if my_video %}
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    {% video my_video %}
-                                </div>
-                            {% endif %}
-                        {% endvideo %}
-                    </div>
+                    
+                    {% if video_url %}
+                        <div class="video-container">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe src="{{ video_url }}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <style>
+                            .video-container {
+                                margin-top: 20px;
+                            }
+
+                            .embed-responsive-16by9 iframe {
+                                width: 390px;
+                                height: 292px;
+                                border-radius: 39px;
+                                overflow: hidden;
+                            }
+                        </style>
+                    {% endif %}
                     <div class="translate-letters">
                         {% for answer in answers %}
                             <div class="letter letter-option" data-answer-id="{{ answer.id }}">
