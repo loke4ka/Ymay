@@ -72,7 +72,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Qsign3.wsgi.application'
-
+LOGIN_URL = 'sign_in'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
