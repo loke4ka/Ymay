@@ -26,7 +26,7 @@
                     <div class="title">Diamonds</div>
                     <div class="img-value">
                         <img src="{% static 'Ymay/images/lesson-complete-icons/diamond-icon.png' %}" alt=""/>
-                        <p class="value">12</p>
+                        <p class="value">{{ correct_answers }}</p>
                     </div>
                 </div>
                 <!-- section  -->
@@ -35,21 +35,21 @@
                         <div class="title">Total XP</div>
                         <div class="img-value">
                             <img src="{% static 'Ymay/images/lesson-complete-icons/xp-icon.png' %}" alt=""/>
-                            <p class="value">24</p>
+                            <p class="value">{{ total_score }}</p>
                         </div>
                     </div>
                     <div class="time-section l-sec">
                         <div class="title">Time</div>
                         <div class="img-value">
                             <img src="{% static 'Ymay/images/lesson-complete-icons/time-icon.png' %}" alt=""/>
-                            <p class="value">1:45</p>
+                            <p class="value">{{ elapsed_time }}</p>
                         </div>
                     </div>
                     <div class="accuracy-section l-sec">
                         <div class="title">Accuracy</div>
                         <div class="img-value">
                             <img src="{% static 'Ymay/images/lesson-complete-icons/accuracy-icon.png' %}" alt=""/>
-                            <p class="value">87%</p>
+                            <p class="value">{{ accuracy }}%</p>
                         </div>
                     </div>
                 </div>

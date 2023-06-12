@@ -12,6 +12,8 @@ class User(models.Model):
     password = models.CharField(max_length=100, null=True)
     last_login = models.DateTimeField(auto_now=True)  # Добавляем поле last_login
     is_active = models.BooleanField(default=True)
+    total_score = models.IntegerField(default=0)
+    correct_answers = models.IntegerField(default=0)
 
     # Методы
     def is_authenticated(self):

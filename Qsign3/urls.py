@@ -56,6 +56,6 @@ urlpatterns = [
                   path('select_payment_method/', select_payment_method, name='select_payment_method'),
                   path('sub_success/', sub_success, name='sub_success'),
 
-                  path('quiz_completed', quiz_complete, name='quiz_completed'),
+                  path('quiz_completed/<str:quiz_title>/', quiz_complete, name='quiz_completed'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

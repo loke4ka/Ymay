@@ -6,12 +6,13 @@ import math
 import os
 import random
 import re
+import time
 
 import cv2
 import numpy as np
 import requests
 from django.contrib import messages, auth
-from django.contrib.auth import login
+from django.contrib.auth import login, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.cache import cache
@@ -573,7 +574,11 @@ def account_page(request):
     # Получите имя пользователя из объекта request.user
     name = request.user.name if request.user.is_authenticated else None
 
-    return render(request, 'account-fullpage.html', {'name': name})
+    total_score = request.user.total_score if request.user.is_authenticated else None
+    correct_answers = request.user.correct_answers if request.user.is_authenticated else None
+
+    return render(request, 'account-fullpage.html',
+                  {'name': name, 'total_score': total_score, 'correct_answers': correct_answers})
 
 
 def settings_page(request):
@@ -584,6 +589,10 @@ def settings_page(request):
 def quiz_page(request, quiz_title, question_order):
     # Получите текущего пользователя
     user = request.user
+
+    # Определение времени начала квиза при первом входе на страницу
+    if 'start_time' not in request.session:
+        request.session['start_time'] = time.time()
 
     if request.method == 'POST':
 
@@ -625,7 +634,7 @@ def quiz_page(request, quiz_title, question_order):
             next_video = None
             if next_video is None:
                 # Больше видео нет, квиз завершен
-                return redirect('quiz_completed')
+                return redirect('quiz_completed', quiz_title=quiz.title)
 
             next_question = Question.objects.filter(quiz=quiz, order=1).first()
             answers = Answer.objects.filter(question=next_question)
@@ -680,16 +689,14 @@ def quiz_page(request, quiz_title, question_order):
             correct_section_style = 'display: none;'
             wrong_section_style = 'display: block;'
 
-    video.embed = question.video.embed if question.video else None
-    if video.embed:
-        video.embed = video.embed.replace("http://", "https://")
+    video_url = question.video.embed if question.video else None
 
     # Передача данных в контекст шаблона
     context = {
         'correct_answer': correct_answer,
         'question': question,
         'quiz': quiz,
-        'video': video,
+        'video_url': video_url,
         'answers': answers,
         'correct_section_style': correct_section_style,
         'wrong_section_style': wrong_section_style
@@ -698,8 +705,62 @@ def quiz_page(request, quiz_title, question_order):
     return render(request, 'translate-this-sentence.html', context)
 
 
-def quiz_complete(request):
-    return render(request, 'lesson-completed.html')
+def quiz_complete(request, quiz_title):
+    user = request.user
+    quiz = Quiz.objects.get(title=quiz_title)
+
+    # Получение общего количества вопросов
+    total_questions = Question.objects.filter(quiz=quiz).count()
+
+    # Получение количества правильных ответов пользователя
+    correct_answers = UserProgress.objects.filter(user=user, quiz=quiz, is_correct=True).count()
+
+    # Вычисление Accuracy в процентах
+    accuracy = (correct_answers / total_questions) * 100 if total_questions > 0 else 0
+
+    # Получите все записи UserProgress для данного пользователя и квиза
+    user_progress_list = UserProgress.objects.filter(user=user, quiz=quiz)
+
+    # Посчитайте количество правильных ответов и общее количество баллов
+    correct_answers_count = user_progress_list.filter(is_correct=True).count()
+    total_score = correct_answers_count * 5
+
+    # Получение времени начала квиза из сессии
+    start_time = request.session.get('start_time')
+
+    # Определение времени окончания квиза
+    end_time = time.time()
+
+    # Расчет общего времени, потраченного на квиз
+    elapsed_time = end_time - start_time
+
+    # Конвертирование времени в формат ЧЧ:ММ:СС
+    hours = int(elapsed_time / 3600)
+    minutes = int((elapsed_time % 3600) / 60)
+    seconds = int(elapsed_time % 60)
+    formatted_time = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+
+    # Получите или создайте запись пользователя
+    user_data, created = User.objects.get_or_create(id=user.id)
+
+    # Обновление полей total_score и correct_answers
+    user_data.total_score += total_score
+    user_data.correct_answers += correct_answers
+    user_data.save()
+
+    context = {
+        'quiz': quiz,
+        'accuracy': accuracy,
+        'total_questions': total_questions,
+        'correct_answers': correct_answers,
+        'total_score': total_score,
+        'elapsed_time': formatted_time,
+    }
+
+    # Очистка значения таймера в сессии
+    del request.session['start_time']
+
+    return render(request, 'lesson-completed.html', context)
 
 
 def leaderboard(request):
